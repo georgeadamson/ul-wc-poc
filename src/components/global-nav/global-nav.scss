@@ -1,0 +1,67 @@
+nav {
+  background-color: #fbfbfa;
+  display: block;
+  font-family: Helvetica;
+  text-align: center;
+  position: relative;
+
+  ul {
+    display: inline-flex;
+    padding: 0;
+    width: 80%;
+
+    /* To ensure logo is not obscured by the curve below it: */
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Logo in middle: */
+  li.logo {
+    order: 2;
+    width: 60px;
+    max-width: 60px;
+  }
+
+  li.logo a {
+    width: 100%;
+  }
+
+  li {
+    flex: 1;
+    list-style: none;
+    text-align: center;
+
+    /* Links left of logo: */
+    order: 1;
+  }
+
+  /* Links right of logo: */
+  li:nth-of-type(4) ~ li {
+    order: 3;
+  }
+
+  /* Links: */
+  a {
+    color: #666;
+    font-size: 15px;
+    font-weight: 300;
+    text-decoration: none;
+
+    display: block;
+    width: 75%;
+    margin: 0 auto;
+  }
+
+  /* Curve below logo: */
+  &:after {
+    content: '';
+    display: block;
+    left: 50%;
+    transform: translate(-50%, -180px);
+    border-radius: 50%;
+    border: 100px solid #fbfbfa;
+
+    position: absolute;
+    z-index: 0;
+  }
+}

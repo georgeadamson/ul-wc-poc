@@ -1,0 +1,82 @@
+// Experimental. This needs to be moved to common module
+//               and only excluded in prod enviroments.
+%warning {
+  position: relative;
+  outline: 1px dashed red;
+  &:after {
+    content: '⚠️ Antipattern!';
+    font-family: monospace;
+    font-size: 0.625rem;
+    position: absolute;
+    left: 0;
+    top: 0;
+    box-shadow: 0px 1px 3px 0px red;
+    color: red;
+    padding: 0.5em;
+    background-color: yellow;
+    min-width: 0.5rem;
+    line-height: 1;
+    z-index: 999;
+    white-space: nowrap;
+  }
+}
+
+%error {
+  @extend %warning;
+  &:after {
+    background-color: red;
+    box-shadow: 0px 1px 3px 0px yellow;
+    color: yellow;
+  }
+}
+
+img {
+  max-height: 100%;
+  max-width: 100%;
+  width: 100%;
+}
+
+img {
+  &:not([alt]) {
+    @extend %error;
+    // &:after {
+    //   content: '⚠️ <img> missing alt';
+    // }
+  }
+}
+
+iea-logo {
+  &:not([alt]) {
+    @extend %error;
+    &:after {
+      content: '⚠️ <iea-logo> missing alt';
+    }
+    img {
+      @extend %error;
+    }
+  }
+
+  &[alt=''] {
+    @extend %error;
+    &:after {
+      content: '⚠️ <iea-logo> alt cannot be blank and must describe the link';
+    }
+    img {
+      @extend %error;
+    }
+  }
+
+  // Vague "home" alt text:
+  &[alt='home'],
+  &[alt='Home'],
+  &[alt='homepage'],
+  &[alt='Homepage'] {
+    @extend %error;
+    &:after {
+      content: '⚠️ <iea-logo> alt=Home? WTF?! You lazy muppet';
+    }
+    img {
+      @extend %error;
+    }
+  }
+}
