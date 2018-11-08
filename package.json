@@ -17,7 +17,7 @@
     "test": "jest",
     "test.watch": "jest --watch",
     "test.e2e": "stencil test --e2e --screenshot",
-    "bump": "npm version patch && stencil build && npm publish"
+    "deploy": "npm version patch && stencil build && npm publish"
   },
   "dependencies": {
     "nano-markdown": "^1.2.0"

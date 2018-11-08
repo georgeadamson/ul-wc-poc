@@ -1,0 +1,51 @@
+.themeC {
+  box-sizing: border-box;
+  margin: 0 auto;
+  max-width: 90%;
+  padding: 0 15px;
+
+  text-align: center;
+
+  .heading {
+    color: #000;
+    font-family: futura-pt, Arial, sans-serif;
+    font-size: 24px;
+    font-weight: 200;
+    line-height: 46px;
+
+    padding: 24px 0;
+  }
+
+  .bodycopy {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    margin: 8px 0;
+
+    a {
+      background: #fff;
+      border: solid 1px #c79652;
+
+      padding: 6px 24px;
+      margin-bottom: 48px;
+
+      color: #c79652;
+      font-size: 12px;
+      line-height: 35px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+
+      // Crazy hack to make link start on new line, like display:block
+      // and be centered, like display:inline
+      display: table;
+      margin-left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+
+      &:hover {
+        color: #fff;
+        background: #c79652;
+      }
+    }
+  }
+}

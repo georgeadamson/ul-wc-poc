@@ -5,7 +5,7 @@ nav {
   text-align: center;
   position: relative;
 
-  ul {
+  .nav__list {
     display: inline-flex;
     padding: 0;
     width: 80%;
@@ -15,18 +15,9 @@ nav {
     z-index: 1;
   }
 
-  /* Logo in middle: */
-  li.logo {
-    order: 2;
-    width: 60px;
-    max-width: 60px;
-  }
 
-  li.logo a {
-    width: 100%;
-  }
 
-  li {
+  .nav__item {
     flex: 1;
     list-style: none;
     text-align: center;
@@ -35,13 +26,14 @@ nav {
     order: 1;
   }
 
+  
   /* Links right of logo: */
-  li:nth-of-type(4) ~ li {
+  .nav__item:nth-of-type(4) ~ .nav__item {
     order: 3;
   }
 
   /* Links: */
-  a {
+  .nav__item > * {
     color: #666;
     font-size: 15px;
     font-weight: 300;
@@ -50,6 +42,16 @@ nav {
     display: block;
     width: 75%;
     margin: 0 auto;
+  }
+
+  /* Logo in middle: */
+  .nav__item--logo {
+    order: 2;
+    width: 60px;
+    max-width: 60px;
+ 
+    > * {
+    width: 100%;
   }
 
   /* Curve below logo: */

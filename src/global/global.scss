@@ -1,0 +1,29 @@
+@import './variables.scss';
+@import './breakpoints.scss';
+@import './resets.scss';
+
+@font-face {
+  font-family: 'futura-pt';
+  src: url('https://use.typekit.net/af/2cd6bf/00000000000000000001008f/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3')
+      format('woff2'),
+    /* Super Modern Browsers */
+      url('https://use.typekit.net/af/2cd6bf/00000000000000000001008f/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3')
+      format('woff'); /* Pretty Modern Browsers */
+}
+
+$gap: 8px;
+
+.gin-top-3 {
+  display: inline-block;
+  margin-top: $gap * 3; // 24px
+}
+
+.gin-top-6 {
+  display: inline-block;
+  margin-top: $gap * 6; // 48px
+}
+
+.gin-top-9 {
+  display: inline-block;
+  margin-top: $gap * 9; // 72px
+}

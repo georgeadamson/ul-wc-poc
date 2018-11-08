@@ -1,0 +1,141 @@
+:host {
+  // Questionable way to prevent top of page from being hidden under position:fixed .nav:
+  &:after {
+    content: '';
+    display: block;
+    height: 80px;
+  }
+}
+
+@font-face {
+  font-family: 'futura-pt';
+  src: url('https://use.typekit.net/af/2cd6bf/00000000000000000001008f/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3')
+      format('woff2'),
+    /* Super Modern Browsers */
+      url('https://use.typekit.net/af/2cd6bf/00000000000000000001008f/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3')
+      format('woff'); /* Pretty Modern Browsers */
+}
+
+// Mobile first styles:
+.nav {
+  background: #000;
+
+  display: grid;
+  grid-template-columns: 72px auto 72px;
+  justify-items: center;
+
+  padding: 0;
+  position: fixed;
+  top: 0;
+  z-index: 999;
+  width: 100%;
+
+  font-weight: 100;
+  font-family: futura-pt, Arial, sans-serif;
+  font-size: 13px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.nav__list {
+  list-style: none;
+}
+
+@import './global-nav.menu.magnum.scss';
+
+.nav__item--logo {
+  grid-column: 2;
+  place-self: center;
+  width: 100px;
+}
+
+.nav__item--search {
+  grid-column: 3;
+}
+
+[slot='search'] {
+  appearance: none;
+  background: transparent;
+  border: none;
+  display: inline-block;
+  padding: 24px;
+
+  .icon {
+    font-size: 24px;
+  }
+  .text {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .nav {
+    height: 25px;
+    padding: 24px 0;
+  }
+
+  .nav__list {
+    display: grid;
+    grid-template-columns: repeat(5, auto);
+
+    margin-left: 10%;
+    padding: 0;
+    width: 80%;
+    text-align: center;
+  }
+
+  .nav__item {
+    grid-row: 2;
+    grid-column: auto;
+  }
+
+  /* Logo in middle: */
+  .nav__item--logo {
+    grid-row: 1;
+    grid-column: 1/6;
+
+    // Logo link:
+    > * {
+      max-width: 140px;
+    }
+  }
+
+  .nav__item--search {
+    grid-row: 1;
+    grid-column: 5;
+
+    > * {
+      text-transform: uppercase;
+    }
+  }
+}
+
+/* Links in each <li> slot: */
+.nav__item > * {
+  color: #fff;
+  font-size: 13px;
+  font-weight: 300;
+  text-decoration: none;
+
+  display: block;
+  width: 75%;
+  margin: 0 auto;
+}
+
+.nav {
+  &:not([aria-expanded]) {
+    [class='nav__item'] {
+      //display: none;
+    }
+  }
+
+  [class='nav__item'] {
+    display: block;
+  }
+}
+
+@media (min-width: 768px) {
+  [slot='toggle'] {
+    display: none;
+  }
+}

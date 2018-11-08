@@ -1,0 +1,49 @@
+@import '../../../common/sass/mixins/burger-icon';
+
+.nav__menu--toggle {
+  grid-column: 1;
+  width: 140px;
+}
+
+/* Menu toggle button */
+[slot='toggle'] {
+  background: #000;
+  border: none;
+
+  padding: 24px;
+  width: 72px;
+  height: 72px;
+
+  @include burger-icon(24px, #fff);
+}
+
+.nav {
+  &:not([aria-expanded]) {
+    [class='nav__list'] {
+      display: none;
+    }
+  }
+
+  &[aria-expanded] {
+    // Animate between ☰ and X icon:
+    [slot='toggle'] {
+      @include burger-icon-close();
+    }
+
+    // Show menu:
+    [class='nav__list'] {
+      display: block;
+    }
+  }
+}
+
+// On non-mobile displays:
+@media (min-width: 768px) {
+  [slot='toggle'] {
+    display: none;
+  }
+
+  [class='nav__list'] {
+    display: block;
+  }
+}

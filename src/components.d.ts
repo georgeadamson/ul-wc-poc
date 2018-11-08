@@ -12,6 +12,25 @@ import '@stencil/core';
 
 export namespace Components {
 
+  interface IeaField {
+    'className': string;
+    'id': string;
+    'label': string;
+    'pattern': string;
+    'placeholder': string;
+    'type': string;
+    'value': string;
+  }
+  interface IeaFieldAttributes extends StencilHTMLAttributes {
+    'className'?: string;
+    'id'?: string;
+    'label'?: string;
+    'pattern'?: string;
+    'placeholder'?: string;
+    'type'?: string;
+    'value'?: string;
+  }
+
   interface IeaFooterNav {
     'name': string;
   }
@@ -20,9 +39,11 @@ export namespace Components {
   }
 
   interface IeaGlobalNav {
+    'expanded': boolean;
     'logoIndex': number;
   }
   interface IeaGlobalNavAttributes extends StencilHTMLAttributes {
+    'expanded'?: boolean;
     'logoIndex'?: number;
   }
 
@@ -32,6 +53,9 @@ export namespace Components {
     'heading': string;
     'headingLevel': number;
     'src': string;
+    'subheading': string;
+    'target': string;
+    'theme': string;
   }
   interface IeaHeroAttributes extends StencilHTMLAttributes {
     'alt'?: string;
@@ -39,6 +63,9 @@ export namespace Components {
     'heading'?: string;
     'headingLevel'?: number;
     'src'?: string;
+    'subheading'?: string;
+    'target'?: string;
+    'theme'?: string;
   }
 
   interface IeaLazy {
@@ -49,14 +76,14 @@ export namespace Components {
   }
 
   interface IeaLogo {
-    'alt': string;
     'href': string;
     'src': string;
+    'text': string;
   }
   interface IeaLogoAttributes extends StencilHTMLAttributes {
-    'alt'?: string;
     'href'?: string;
     'src'?: string;
+    'text'?: string;
   }
 
   interface MyComponent {
@@ -80,6 +107,7 @@ export namespace Components {
 
 declare global {
   interface StencilElementInterfaces {
+    'IeaField': Components.IeaField;
     'IeaFooterNav': Components.IeaFooterNav;
     'IeaGlobalNav': Components.IeaGlobalNav;
     'IeaHero': Components.IeaHero;
@@ -90,6 +118,7 @@ declare global {
   }
 
   interface StencilIntrinsicElements {
+    'iea-field': Components.IeaFieldAttributes;
     'iea-footer-nav': Components.IeaFooterNavAttributes;
     'iea-global-nav': Components.IeaGlobalNavAttributes;
     'iea-hero': Components.IeaHeroAttributes;
@@ -99,6 +128,12 @@ declare global {
     'iea-skip-to-content': Components.IeaSkipToContentAttributes;
   }
 
+
+  interface HTMLIeaFieldElement extends Components.IeaField, HTMLStencilElement {}
+  var HTMLIeaFieldElement: {
+    prototype: HTMLIeaFieldElement;
+    new (): HTMLIeaFieldElement;
+  };
 
   interface HTMLIeaFooterNavElement extends Components.IeaFooterNav, HTMLStencilElement {}
   var HTMLIeaFooterNavElement: {
@@ -143,6 +178,7 @@ declare global {
   };
 
   interface HTMLElementTagNameMap {
+    'iea-field': HTMLIeaFieldElement
     'iea-footer-nav': HTMLIeaFooterNavElement
     'iea-global-nav': HTMLIeaGlobalNavElement
     'iea-hero': HTMLIeaHeroElement
@@ -153,6 +189,7 @@ declare global {
   }
 
   interface ElementTagNameMap {
+    'iea-field': HTMLIeaFieldElement;
     'iea-footer-nav': HTMLIeaFooterNavElement;
     'iea-global-nav': HTMLIeaGlobalNavElement;
     'iea-hero': HTMLIeaHeroElement;

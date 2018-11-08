@@ -1,0 +1,18 @@
+// This is a cunning way to expose current breakpoint to javascript.
+// In JS use: var bp = window.getComputedStyle(document.head).fontFamily
+// Convention: The breakpoint string always starts with current breakpoint name.
+head {
+  font-family: xs lte-xs lte-sm lte-md lte-lg gte-xs;
+
+  @media (min-width: 768px) {
+    font-family: sm lte-sm lte-md lte-lg gte-xs gte-sm;
+  }
+
+  @media (min-width: 992px) {
+    font-family: md lte-md lte-lg gte-xs gte-sm gte-md;
+  }
+
+  @media (min-width: 1200px) {
+    font-family: lg lte-lg gte-xs gte-sm gte-md gte-lg;
+  }
+}

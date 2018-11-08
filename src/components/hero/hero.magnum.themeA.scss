@@ -1,0 +1,47 @@
+.themeA {
+  .img {
+    display: block;
+    height: 300px;
+    margin: 0 auto;
+    margin-left: 50%;
+    transform: translateX(-50%);
+  }
+
+  h1 {
+    color: red;
+  }
+
+  .img-box {
+    display: block;
+    overflow: hidden;
+  }
+
+  .heading {
+    color: #002663;
+    font-size: 2.5rem;
+    font-weight: 200;
+    text-align: center;
+  }
+
+  .bodycopy {
+    font-size: 11px;
+    text-align: center;
+    text-transform: uppercase;
+    line-height: 3;
+
+    margin: 0;
+
+    a {
+      background: #c69557;
+      color: #fff;
+      display: inline-block;
+      margin: auto;
+      padding: 6px 24px;
+
+      &:hover {
+        background: #f5efe6;
+        color: #c79652;
+      }
+    }
+  }
+}

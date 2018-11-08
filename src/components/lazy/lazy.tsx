@@ -40,7 +40,7 @@ export class MyComponent {
   }
 
   render() {
-    console.log(this.children);
+    //console.log(this.children);
     return this.loaded ? this.children : <span innerHTML={this.placeholder} />;
   }
 }

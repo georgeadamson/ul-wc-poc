@@ -3,6 +3,7 @@ import { sass } from "@stencil/sass";
 
 export const config: Config = {
   namespace: "iea-wc",
+  globalStyle: "src/global/global.scss",
   outputTargets: [
     {
       type: "dist"

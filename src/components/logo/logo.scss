@@ -1,3 +1,5 @@
+// All this scss is out of date or uses deprecated techniques.
+
 // Experimental. This needs to be moved to common module
 //               and only excluded in prod enviroments.
 %warning {
@@ -7,6 +9,7 @@
     content: '⚠️ Antipattern!';
     font-family: monospace;
     font-size: 0.625rem;
+    text-transform: none;
     position: absolute;
     left: 0;
     top: 0;
@@ -31,7 +34,6 @@
 }
 
 img {
-  max-height: 100%;
   max-width: 100%;
   width: 100%;
 }
@@ -46,7 +48,7 @@ img {
 }
 
 iea-logo {
-  &:not([alt]) {
+  &:not([text]) {
     @extend %error;
     &:after {
       content: '⚠️ <iea-logo> missing alt';

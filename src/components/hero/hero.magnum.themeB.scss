@@ -1,0 +1,40 @@
+.themeB {
+  box-sizing: border-box;
+  margin: 0 auto;
+  max-width: 90%;
+  padding: 0 15px;
+
+  text-align: center;
+
+  .headings {
+    display: flex;
+    flex-direction: column-reverse;
+
+    text-transform: uppercase;
+
+    margin-bottom: 24px;
+  }
+
+  .heading {
+    color: #241201;
+    font-size: 32px;
+    font-weight: 400;
+    margin: 0 0 12px 0;
+  }
+
+  .subheading {
+    color: #c79652;
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    margin: 0 0 12px 0;
+  }
+
+  .bodycopy {
+    color: #666;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 1.4em;
+    margin-bottom: 24px;
+  }
+}
