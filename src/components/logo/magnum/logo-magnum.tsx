@@ -2,8 +2,8 @@ import { Component, Prop } from "@stencil/core";
 //import LogoComponent from "./logo.behaviour";
 
 @Component({
-  tag: "iea-logo",
-  styleUrl: "./magnum/logo-magnum.scss",
+  tag: "iea-logo-magnum",
+  styleUrl: "logo-magnum.scss",
   shadow: true
 })
 export class MyComponent {

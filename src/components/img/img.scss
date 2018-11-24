@@ -1,0 +1,18 @@
+.img__placeholder--aspect {
+  display: block;
+  position: relative;
+  width: 100%;
+}
+
+.img__placeholder--children {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+img {
+  width: 100%;
+}

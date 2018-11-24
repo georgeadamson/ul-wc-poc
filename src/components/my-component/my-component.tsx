@@ -12,10 +12,6 @@ export class MyComponent {
   last: string;
 
   render() {
-    return (
-      <div>
-        <iea-global-nav />
-      </div>
-    );
+    return <div>{/* <iea-global-nav-dove /> */}</div>;
   }
 }

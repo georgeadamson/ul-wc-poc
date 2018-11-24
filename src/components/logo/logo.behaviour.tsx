@@ -1,12 +1,6 @@
-import { Component, Prop } from "@stencil/core";
-//import LogoComponent from "./logo.behaviour";
+import { Prop } from "@stencil/core";
 
-@Component({
-  tag: "iea-logo",
-  styleUrl: "./magnum/logo-magnum.scss",
-  shadow: true
-})
-export class MyComponent {
+export default class MyComponent {
   @Prop()
   href: string = "/";
 
@@ -15,12 +9,17 @@ export class MyComponent {
   @Prop()
   alt: string = "";
 
+  // https://www.dove.com/content/dam/unilever/dove/global/Dove.png
+
   @Prop()
   src: string = "";
+  // "https://www.magnumicecream.com/content/dam/unilever/magnum/global/icon/ice_cream/all/magnum_logo-1129263.png";
+  // "https://www.dove.com/content/dam/unilever/dove/global/Dove.png";
 
   render() {
     return (
       <a class="logo-link" href={this.href}>
+        hello
         {this.src ? (
           <img class="logo-img" src={this.src} alt={this.alt} />
         ) : (
@@ -30,5 +29,3 @@ export class MyComponent {
     );
   }
 }
-
-console.log(MyComponent);

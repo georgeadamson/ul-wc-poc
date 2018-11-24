@@ -1,27 +1,101 @@
 <!DOCTYPE html>
-<html
-  dir="ltr"
-  lang="en"
->
+<html dir="ltr" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
+    />
+    <title>Superduperdemo</title>
+    <link rel="stylesheet" href="/build/iea-wc.css" />
+    <script src="/build/iea-wc.js"></script>
+  </head>
 
-<head>
-  <meta charset="utf-8">
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
-  >
-  <title>Superduperdemo</title>
-  <link
-    rel="stylesheet"
-    href="/build/iea-wc.css"
-  />
-  <script src="/build/iea-wc.js"></script>
-</head>
+  <body>
+    <header>
+      <iea-skip-to-content></iea-skip-to-content>
 
-<body>
+      <iea-global-nav-magnum theme="A">
+        <button slot="toggle" aria-label="Show menu"></button>
 
-  <header>
-    <iea-skip-to-content></iea-skip-to-content>
+        <iea-logo
+          slot="logo"
+          alt="Magnum homepage"
+          src="https://www.magnumicecream.com/content/dam/unilever/magnum/global/icon/ice_cream/all/magnum_logo-1129263.png"
+        ></iea-logo>
+
+        <a href="/">Products</a> <a href="/">Campaigns</a>
+        <a href="/">Stories</a> <a href="/">Pleasure store</a>
+        <a href="/">MagnumByMagnum</a>
+
+        <button slot="search" aria-label="Search">
+          <span class="icon" aria-hidden>🔍</span>
+          <span class="text">Search</span>
+        </button>
+      </iea-global-nav-magnum>
+    </header>
+
+    <main id="main-content">
+      <iea-hero-magnum
+        theme="A"
+        heading=""
+        src="https://www.magnumicecream.com/content/dam/unilever/magnum/global/static_not_in-use_products_/magnum_vegan_key_visual_green_classic_horizontal_v2-1399606-jpg.jpg"
+        bodycopy="[Read more](https://www.magnumicecream.com/uk/stories/food/luxurious-vegan-icecream.html)"
+      ></iea-hero-magnum>
+
+      <iea-hero-magnum
+        theme="B"
+        heading="NEW CHOCOLATE AND HAZELNUT PRALINÉ"
+        subheading="Products"
+        heading-level="2"
+        src=""
+        bodycopy="Introducing Chocolate & Hazelnut Praliné – a luxurious new addition"
+      ></iea-hero-magnum>
+
+      <iea-global-nav-dove>
+        <iea-logo
+          alt="Dove homepage"
+          src="https://www.dove.com/content/dam/unilever/dove/global/Dove.png"
+        ></iea-logo>
+        <a href="/">Explore Solutions</a> <a href="/">Products</a>
+        <a href="/">Baby Dove</a> <a href="/">Men + Care</a>
+        <a href="/">Dove Self-Esteem Project</a>
+        <a href="/">Learn About Dove</a>
+      </iea-global-nav-dove>
+
+      <iea-scroll-position></iea-scroll-position>
+    </main>
+
+    <footer><iea-footer-nav></iea-footer-nav></footer>
+  </body>
+</html>
+
+<!--
+  Welcome to Dove...
+
+  …the home of real beauty. For over a decade, we've been working to make beauty a source of confidence, not anxiety, and here's where the journey continues.
+  <a href='http://bbc.co.uk'>Read more</a>
+
+  [Read more](http://bbc.co.uk)
+
+  https://www.dove.com/content/dam/unilever/dove/global/general_image/dove_and_bunny_2048x980_hero_image_7-1418722.png.ulenscale.767x360.png
+
+
+  iea-footer-nav
+
+  <iea-skip-to-content></iea-skip-to-content>
+
+
+    <iea-global-nav>
+      <iea-logo></iea-logo>
+      <a href="/">Explore Solutions</a>
+      <a href="/">Products</a>
+      <a href="/">Baby Dove</a>
+      <a href="/">Men + Care</a>
+      <a href="/">Dove Self-Esteem Project</a>
+      <a href="/">Learn About Dove</a>
+    </iea-global-nav>
+
 
     <iea-global-nav>
       <button
@@ -31,7 +105,8 @@
 
       <iea-logo
         slot="logo"
-        text="Dove homepage"
+        alt="Magnum homepage"
+        src="https://www.magnumicecream.com/content/dam/unilever/magnum/global/icon/ice_cream/all/magnum_logo-1129263.png"
       ></iea-logo>
 
       <a href="/">Products</a>
@@ -45,78 +120,13 @@
         <span class="text">Search</span>
       </button>
     </iea-global-nav>
-  </header>
-
-  <main id="main-content">
-
-    <iea-hero
-      theme="A"
-      heading=""
-      bodycopy="[Read more about New Magnum Vegan](https://www.magnumicecream.com/uk/stories/food/luxurious-vegan-icecream.html)"
-      src="https://www.magnumicecream.com/content/dam/unilever/magnum/global/static_not_in-use_products_/magnum_vegan_key_visual_green_classic_horizontal_v2-1399606-jpg.jpg"
-    ></iea-hero>
-
-    <iea-hero
-      class="gin-top-9"
-      theme="B"
-      heading="New Chocolate and Hazelnut Praliné"
-      heading-level="1"
-      subheading="Products"
-      bodycopy="Introducing Chocolate & Hazelnut Praliné – a luxurious new addition"
-      src=""
-    ></iea-hero>
-
-    <iea-hero
-      class="gin-top-9"
-      theme="C"
-      heading="Chocolate and Hazelnut Praliné"
-      heading-level="2"
-      subheading="Products"
-      bodycopy="Intense hazelnut ice ceam with a hint of caramel, dipped in thick Belgian chocolate with crunchy caramelised hazelnut pieces. [Explore new Praliné products](https://www.magnumicecream.com/uk/products/icecream-classics/magnum-chocolate-&-hazelnut-pralin%C3%A9-ice-cream-3-x-90ml.html)"
-      src="https://www.magnumicecream.com/content/dam/unilever/magnum/global/active_in-use_products_/product_only/ice_cream/all/magnum_praline_ice-cream-product-shot-1155919.jpg.ulenscale.580x580.jpg"
-    ></iea-hero>
-
-  </main>
-
-  <footer>
-    <iea-footer-nav></iea-footer-nav>
-  </footer>
-</body>
-
-</html>
 
 
+    https://www.magnumicecream.com/content/dam/unilever/magnum/global/icon/ice_cream/all/magnum_logo-1129263.png
 
 
-<!--
-
-  Welcome to Dove...
-
-  …the home of real beauty. For over a decade, we've been working to make beauty a source of confidence, not anxiety, and here's where the journey continues.
-  <a href='http://bbc.co.uk'>Read more</a>
-
-  https://www.dove.com/content/dam/unilever/dove/united_kingdom/general_image/personal_care_unidentified/personal_care_unidentified/day01_shot01_079_hero-279551.jpg.ulenscale.767x360.jpg
-
-  [Read more](http://bbc.co.uk)
-
-  iea-footer-nav
-  iea-hero
-  iea-global-nav
-  <iea-skip-to-content></iea-skip-to-content>
+    <iea-hero></iea-hero>
 
 
-      <iea-global-nav>
-        <iea-logo></iea-logo>
-        <a href="/">Explore
-      Solutions</a>
-      <a
-      href="/"
-    >Products</a>
-      <a href="/">Baby Dove</a>
-      <a href="/">Men + Care</a>
-      <a href="/">Dove Self-Esteem Project</a>
-      <a href="/">Learn About Dove</a>
-      </iea-global-nav>
-
-
-      -->
+        <iea-skip-to-content></iea-skip-to-content>
+-->

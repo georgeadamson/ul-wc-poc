@@ -1,69 +1,68 @@
-nav {
+.nav {
   background-color: #fbfbfa;
   display: block;
   font-family: Helvetica;
   text-align: center;
   position: relative;
 
-  .nav__list {
-    display: inline-flex;
-    padding: 0;
-    width: 80%;
-
-    /* To ensure logo is not obscured by the curve below it: */
-    position: relative;
-    z-index: 1;
-  }
-
-
-
-  .nav__item {
-    flex: 1;
-    list-style: none;
-    text-align: center;
-
-    /* Links left of logo: */
-    order: 1;
-  }
-
-  
-  /* Links right of logo: */
-  .nav__item:nth-of-type(4) ~ .nav__item {
-    order: 3;
-  }
-
-  /* Links: */
-  .nav__item > * {
-    color: #666;
-    font-size: 15px;
-    font-weight: 300;
-    text-decoration: none;
-
-    display: block;
-    width: 75%;
-    margin: 0 auto;
-  }
-
-  /* Logo in middle: */
-  .nav__item--logo {
-    order: 2;
-    width: 60px;
-    max-width: 60px;
- 
-    > * {
-    width: 100%;
-  }
-
   /* Curve below logo: */
   &:after {
     content: '';
     display: block;
     left: 50%;
-    transform: translate(-50%, -180px);
+    transform: translate(-50%, -50px);
     border-radius: 50%;
     border: 100px solid #fbfbfa;
+    border-width: 0 70px 70px 70px;
 
     position: absolute;
     z-index: 0;
   }
+}
+
+.items {
+  display: inline-flex;
+  padding: 0;
+  width: 80%;
+
+  /* To ensure logo is not obscured by the curve below it: */
+  position: relative;
+  z-index: 1;
+}
+
+.nav__item {
+  flex: 1;
+  list-style: none;
+  text-align: center;
+
+  /* Links left of logo: */
+  order: 1;
+}
+
+/* Logo in middle: */
+.nav__item:first-child {
+  order: 2;
+  width: 60px;
+  max-width: 60px;
+
+  > * {
+    width: 100%;
+  }
+}
+
+/* Links right of logo: */
+.nav__item:nth-of-type(4) ~ .nav__item {
+  order: 3;
+}
+
+/* Links: */
+.nav__item > * {
+  color: #666;
+  font-size: 15px;
+  font-weight: 300;
+  text-decoration: none;
+
+  display: block;
+  width: 75%;
+  margin: 0 auto;
 }

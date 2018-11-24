@@ -38,16 +38,21 @@ export namespace Components {
     'name'?: string;
   }
 
-  interface IeaGlobalNav {
+  interface IeaGlobalNavDove {
     'expanded': boolean;
-    'logoIndex': number;
   }
-  interface IeaGlobalNavAttributes extends StencilHTMLAttributes {
+  interface IeaGlobalNavDoveAttributes extends StencilHTMLAttributes {
     'expanded'?: boolean;
-    'logoIndex'?: number;
   }
 
-  interface IeaHero {
+  interface IeaGlobalNavMagnum {
+    'expanded': boolean;
+  }
+  interface IeaGlobalNavMagnumAttributes extends StencilHTMLAttributes {
+    'expanded'?: boolean;
+  }
+
+  interface IeaHeroDove {
     'alt': string;
     'bodycopy': string;
     'heading': string;
@@ -57,7 +62,7 @@ export namespace Components {
     'target': string;
     'theme': string;
   }
-  interface IeaHeroAttributes extends StencilHTMLAttributes {
+  interface IeaHeroDoveAttributes extends StencilHTMLAttributes {
     'alt'?: string;
     'bodycopy'?: string;
     'heading'?: string;
@@ -68,6 +73,47 @@ export namespace Components {
     'theme'?: string;
   }
 
+  interface IeaHeroMagnum {
+    'alt': string;
+    'bodycopy': string;
+    'heading': string;
+    'headingLevel': number;
+    'src': string;
+    'subheading': string;
+    'target': string;
+    'theme': string;
+  }
+  interface IeaHeroMagnumAttributes extends StencilHTMLAttributes {
+    'alt'?: string;
+    'bodycopy'?: string;
+    'heading'?: string;
+    'headingLevel'?: number;
+    'src'?: string;
+    'subheading'?: string;
+    'target'?: string;
+    'theme'?: string;
+  }
+
+  interface AupImg {
+    'alt': string;
+    'class': string;
+    'height': string;
+    'sizes': string;
+    'src': string;
+    'srcset': string;
+    'width': string;
+  }
+  interface AupImgAttributes extends StencilHTMLAttributes {
+    'alt'?: string;
+    'class'?: string;
+    'height'?: string;
+    'onLoad'?: (event: CustomEvent) => void;
+    'sizes'?: string;
+    'src'?: string;
+    'srcset'?: string;
+    'width'?: string;
+  }
+
   interface IeaLazy {
     'placeholder': string;
   }
@@ -76,14 +122,25 @@ export namespace Components {
   }
 
   interface IeaLogo {
+    'alt': string;
     'href': string;
     'src': string;
-    'text': string;
   }
   interface IeaLogoAttributes extends StencilHTMLAttributes {
+    'alt'?: string;
     'href'?: string;
     'src'?: string;
-    'text'?: string;
+  }
+
+  interface IeaLogoMagnum {
+    'alt': string;
+    'href': string;
+    'src': string;
+  }
+  interface IeaLogoMagnumAttributes extends StencilHTMLAttributes {
+    'alt'?: string;
+    'href'?: string;
+    'src'?: string;
   }
 
   interface MyComponent {
@@ -93,6 +150,14 @@ export namespace Components {
   interface MyComponentAttributes extends StencilHTMLAttributes {
     'first'?: string;
     'last'?: string;
+  }
+
+  interface IeaScrollPosition {
+    'watch': string;
+  }
+  interface IeaScrollPositionAttributes extends StencilHTMLAttributes {
+    'onScrollY'?: (event: CustomEvent) => void;
+    'watch'?: string;
   }
 
   interface IeaSkipToContent {
@@ -109,22 +174,32 @@ declare global {
   interface StencilElementInterfaces {
     'IeaField': Components.IeaField;
     'IeaFooterNav': Components.IeaFooterNav;
-    'IeaGlobalNav': Components.IeaGlobalNav;
-    'IeaHero': Components.IeaHero;
+    'IeaGlobalNavDove': Components.IeaGlobalNavDove;
+    'IeaGlobalNavMagnum': Components.IeaGlobalNavMagnum;
+    'IeaHeroDove': Components.IeaHeroDove;
+    'IeaHeroMagnum': Components.IeaHeroMagnum;
+    'AupImg': Components.AupImg;
     'IeaLazy': Components.IeaLazy;
     'IeaLogo': Components.IeaLogo;
+    'IeaLogoMagnum': Components.IeaLogoMagnum;
     'MyComponent': Components.MyComponent;
+    'IeaScrollPosition': Components.IeaScrollPosition;
     'IeaSkipToContent': Components.IeaSkipToContent;
   }
 
   interface StencilIntrinsicElements {
     'iea-field': Components.IeaFieldAttributes;
     'iea-footer-nav': Components.IeaFooterNavAttributes;
-    'iea-global-nav': Components.IeaGlobalNavAttributes;
-    'iea-hero': Components.IeaHeroAttributes;
+    'iea-global-nav-dove': Components.IeaGlobalNavDoveAttributes;
+    'iea-global-nav-magnum': Components.IeaGlobalNavMagnumAttributes;
+    'iea-hero-dove': Components.IeaHeroDoveAttributes;
+    'iea-hero-magnum': Components.IeaHeroMagnumAttributes;
+    'aup-img': Components.AupImgAttributes;
     'iea-lazy': Components.IeaLazyAttributes;
     'iea-logo': Components.IeaLogoAttributes;
+    'iea-logo-magnum': Components.IeaLogoMagnumAttributes;
     'my-component': Components.MyComponentAttributes;
+    'iea-scroll-position': Components.IeaScrollPositionAttributes;
     'iea-skip-to-content': Components.IeaSkipToContentAttributes;
   }
 
@@ -141,16 +216,34 @@ declare global {
     new (): HTMLIeaFooterNavElement;
   };
 
-  interface HTMLIeaGlobalNavElement extends Components.IeaGlobalNav, HTMLStencilElement {}
-  var HTMLIeaGlobalNavElement: {
-    prototype: HTMLIeaGlobalNavElement;
-    new (): HTMLIeaGlobalNavElement;
+  interface HTMLIeaGlobalNavDoveElement extends Components.IeaGlobalNavDove, HTMLStencilElement {}
+  var HTMLIeaGlobalNavDoveElement: {
+    prototype: HTMLIeaGlobalNavDoveElement;
+    new (): HTMLIeaGlobalNavDoveElement;
   };
 
-  interface HTMLIeaHeroElement extends Components.IeaHero, HTMLStencilElement {}
-  var HTMLIeaHeroElement: {
-    prototype: HTMLIeaHeroElement;
-    new (): HTMLIeaHeroElement;
+  interface HTMLIeaGlobalNavMagnumElement extends Components.IeaGlobalNavMagnum, HTMLStencilElement {}
+  var HTMLIeaGlobalNavMagnumElement: {
+    prototype: HTMLIeaGlobalNavMagnumElement;
+    new (): HTMLIeaGlobalNavMagnumElement;
+  };
+
+  interface HTMLIeaHeroDoveElement extends Components.IeaHeroDove, HTMLStencilElement {}
+  var HTMLIeaHeroDoveElement: {
+    prototype: HTMLIeaHeroDoveElement;
+    new (): HTMLIeaHeroDoveElement;
+  };
+
+  interface HTMLIeaHeroMagnumElement extends Components.IeaHeroMagnum, HTMLStencilElement {}
+  var HTMLIeaHeroMagnumElement: {
+    prototype: HTMLIeaHeroMagnumElement;
+    new (): HTMLIeaHeroMagnumElement;
+  };
+
+  interface HTMLAupImgElement extends Components.AupImg, HTMLStencilElement {}
+  var HTMLAupImgElement: {
+    prototype: HTMLAupImgElement;
+    new (): HTMLAupImgElement;
   };
 
   interface HTMLIeaLazyElement extends Components.IeaLazy, HTMLStencilElement {}
@@ -165,10 +258,22 @@ declare global {
     new (): HTMLIeaLogoElement;
   };
 
+  interface HTMLIeaLogoMagnumElement extends Components.IeaLogoMagnum, HTMLStencilElement {}
+  var HTMLIeaLogoMagnumElement: {
+    prototype: HTMLIeaLogoMagnumElement;
+    new (): HTMLIeaLogoMagnumElement;
+  };
+
   interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {}
   var HTMLMyComponentElement: {
     prototype: HTMLMyComponentElement;
     new (): HTMLMyComponentElement;
+  };
+
+  interface HTMLIeaScrollPositionElement extends Components.IeaScrollPosition, HTMLStencilElement {}
+  var HTMLIeaScrollPositionElement: {
+    prototype: HTMLIeaScrollPositionElement;
+    new (): HTMLIeaScrollPositionElement;
   };
 
   interface HTMLIeaSkipToContentElement extends Components.IeaSkipToContent, HTMLStencilElement {}
@@ -180,22 +285,32 @@ declare global {
   interface HTMLElementTagNameMap {
     'iea-field': HTMLIeaFieldElement
     'iea-footer-nav': HTMLIeaFooterNavElement
-    'iea-global-nav': HTMLIeaGlobalNavElement
-    'iea-hero': HTMLIeaHeroElement
+    'iea-global-nav-dove': HTMLIeaGlobalNavDoveElement
+    'iea-global-nav-magnum': HTMLIeaGlobalNavMagnumElement
+    'iea-hero-dove': HTMLIeaHeroDoveElement
+    'iea-hero-magnum': HTMLIeaHeroMagnumElement
+    'aup-img': HTMLAupImgElement
     'iea-lazy': HTMLIeaLazyElement
     'iea-logo': HTMLIeaLogoElement
+    'iea-logo-magnum': HTMLIeaLogoMagnumElement
     'my-component': HTMLMyComponentElement
+    'iea-scroll-position': HTMLIeaScrollPositionElement
     'iea-skip-to-content': HTMLIeaSkipToContentElement
   }
 
   interface ElementTagNameMap {
     'iea-field': HTMLIeaFieldElement;
     'iea-footer-nav': HTMLIeaFooterNavElement;
-    'iea-global-nav': HTMLIeaGlobalNavElement;
-    'iea-hero': HTMLIeaHeroElement;
+    'iea-global-nav-dove': HTMLIeaGlobalNavDoveElement;
+    'iea-global-nav-magnum': HTMLIeaGlobalNavMagnumElement;
+    'iea-hero-dove': HTMLIeaHeroDoveElement;
+    'iea-hero-magnum': HTMLIeaHeroMagnumElement;
+    'aup-img': HTMLAupImgElement;
     'iea-lazy': HTMLIeaLazyElement;
     'iea-logo': HTMLIeaLogoElement;
+    'iea-logo-magnum': HTMLIeaLogoMagnumElement;
     'my-component': HTMLMyComponentElement;
+    'iea-scroll-position': HTMLIeaScrollPositionElement;
     'iea-skip-to-content': HTMLIeaSkipToContentElement;
   }
 

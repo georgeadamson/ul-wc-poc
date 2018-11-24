@@ -1,10 +1,12 @@
 .themeA {
   .img {
     display: block;
-    height: 300px;
     margin: 0 auto;
     margin-left: 50%;
     transform: translateX(-50%);
+
+    max-width: 100%;
+    object-fit: cover;
   }
 
   h1 {
@@ -12,6 +14,8 @@
   }
 
   .img-box {
+    background-color: #156035;
+
     display: block;
     overflow: hidden;
   }
@@ -42,6 +46,13 @@
         background: #f5efe6;
         color: #c79652;
       }
+    }
+  }
+
+  @media (min-width: 768px) {
+    & .img {
+      min-height: 600px;
+      width: 100%;
     }
   }
 }
