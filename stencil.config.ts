@@ -4,6 +4,8 @@ import { sass } from "@stencil/sass";
 export const config: Config = {
   namespace: "iea-wc",
   globalStyle: "src/global/global.scss",
+  // For some readon dest defaults to dist/collection folder:
+  copy: [{ src: "index.html", dest: "../magnum.html" }],
   outputTargets: [
     {
       type: "dist"
