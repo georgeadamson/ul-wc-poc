@@ -1,10 +1,17 @@
-.img__placeholder--aspect {
+.aspect {
   display: block;
   position: relative;
   width: 100%;
 }
 
-.img__placeholder--children {
+.aspect__spacer {
+  display: 'block';
+  visibility: 'hidden';
+  // padding-bottom will be set dynamically via style attribute
+  // to set the height as a percentage of width.
+}
+
+.aspect__children {
   display: block;
   position: absolute;
   top: 0;

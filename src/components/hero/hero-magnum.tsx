@@ -42,16 +42,11 @@ export class HeroComponent {
     const Hx = heading && "h" + this.headingLevel; // h1, h2 etc
 
     // Prepare img markup if enough props supplied:
-    // Note we make absolutely sure alt attribute is not omitted.
     const img = src && (
       <div class="img-box">
-        <aup-img
-          class="img"
-          src={src}
-          alt={alt || ""}
-          width="2048"
-          height="868"
-        />
+        <aup-img class="img" src={src} alt={alt}>
+          <div>Loading...</div>
+        </aup-img>
       </div>
     );
 

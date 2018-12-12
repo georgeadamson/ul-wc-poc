@@ -8,6 +8,7 @@ import { Component, Prop } from "@stencil/core";
 export class MyComponent {
   @Prop({ reflectToAttr: true })
   contentId: string;
+
   @Prop()
   text: string = "Skip to main content";
 

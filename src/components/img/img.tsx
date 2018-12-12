@@ -4,31 +4,14 @@ import {
   Element,
   Event,
   EventEmitter,
-  State
-  //Watch
+  State,
+  Watch
 } from "@stencil/core";
 
-//import createUid from "../../common/utils/dom/createUid";
-
-// const styleForAspectWrapper = {
-//   display: "block",
-//   position: "relative",
-//   width: "100%"
-// };
-
-// const styleForAspectChildren = {
-//   display: "block",
-//   position: "absolute",
-//   top: "0",
-//   right: "0",
-//   bottom: "0",
-//   left: "0"
-// };
-
-// Helper to generate styles to control height of aspect-ratio element:
+// Helper to generate custom css style rule
+// to control height of aspect-ratio element relative to width:
 function styleForAspectSpacer(aspectRatio) {
   return {
-    display: "block",
     paddingBottom: 100 * aspectRatio + "%"
   };
 }
@@ -45,7 +28,7 @@ export class MyComponent {
   @Prop() alt: string;
   @Prop() class: string;
 
-  // Optional: Used to calculate aspect ratio to prevent reflow:
+  // Optional: Set both to calculate aspect ratio and prevent reflow:
   @Prop() width: string;
   @Prop() height: string;
 
@@ -61,10 +44,10 @@ export class MyComponent {
   @Event() load: EventEmitter;
 
   // Reset loaded flag when src is changed:
-  // @Watch("src")
-  // srcChange(newValue, oldValue) {
-  //   this.loaded = newValue !== oldValue;
-  // }
+  @Watch("src")
+  srcChange(newValue, oldValue) {
+    this.loaded = newValue !== oldValue;
+  }
 
   componentWillLoad() {
     const host = this.host;
@@ -97,26 +80,35 @@ export class MyComponent {
     let placeholder;
 
     if (!loaded) {
+      // Make absolutely sure we have usable numbers: (And revent divide by zero error etc)
       const aspectRatio =
-        height && width && parseInt("" + height) / parseInt("" + width);
+        width &&
+        height &&
+        parseInt("" + width) &&
+        parseInt("" + height) &&
+        parseInt("" + height) / parseInt("" + width);
       const hasChildren = !!(children && children.length);
 
-      // Placeholder while waiting for img to load:
+      // When we know the aspect ratio we can make a placeholder with same dimensions:
       placeholder = aspectRatio ? (
         // Placeholder to maintain aspect ratio & contain children:
-        <div class="img__placeholder img__placeholder--aspect">
-          <div style={styleForAspectSpacer(aspectRatio)} hidden />
+        <div class="aspect">
+          <div
+            class="aspect__spacer"
+            style={styleForAspectSpacer(aspectRatio)}
+          />
           {hasChildren && (
-            <div class="img__placeholder--children">{children}</div>
+            <div class="children aspect__children">{children}</div>
           )}
         </div>
       ) : (
         // Placeholder just to contain children:
         // TODO: Fix undefined children
-        hasChildren && <div class="img__placeholder">{children}</div>
+        hasChildren && <div class="children">{children}</div>
       );
     }
 
+    // The alt.trim() fixes cases where an author has accidentally provided only whitespace:
     return [
       placeholder,
 
@@ -124,7 +116,7 @@ export class MyComponent {
         src={src}
         srcset={srcset}
         sizes={sizes}
-        alt={alt || ""}
+        alt={alt ? alt.trim() : ""}
         class={className}
         hidden={!loaded}
         onLoad={onLoad}

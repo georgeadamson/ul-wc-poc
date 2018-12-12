@@ -1,5 +1,5 @@
 import { Component, Prop } from "@stencil/core";
-//import LogoComponent from "./logo.behaviour";
+// import { IeaLogo } from "./logo.behaviour";
 
 @Component({
   tag: "iea-logo",
@@ -30,5 +30,3 @@ export class MyComponent {
     );
   }
 }
-
-console.log(MyComponent);

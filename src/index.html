@@ -29,7 +29,7 @@
         <a href="/">MagnumByMagnum</a>
 
         <button slot="search" aria-label="Search">
-          <span class="icon" aria-hidden>🔍</span>
+          <span class="icon" aria-hidden="true">🔍</span>
           <span class="text">Search</span>
         </button>
       </iea-global-nav-magnum>
@@ -38,7 +38,8 @@
     <main id="main-content">
       <iea-hero-magnum
         theme="A"
-        heading=""
+        heading="New Magnum Vegan"
+        heading-level="1"
         src="https://www.magnumicecream.com/content/dam/unilever/magnum/global/static_not_in-use_products_/magnum_vegan_key_visual_green_classic_horizontal_v2-1399606-jpg.jpg"
         bodycopy="[Read more](https://www.magnumicecream.com/uk/stories/food/luxurious-vegan-icecream.html)"
       ></iea-hero-magnum>
@@ -67,6 +68,15 @@
     </main>
 
     <footer><iea-footer-nav></iea-footer-nav></footer>
+
+    <script>
+      // LOCALHOST ONLY:
+      // Hack: Hide localhost dev-server iframe from AXE accessibility tree:
+      setTimeout(function() {
+        var iframe = document.querySelector('iframe[src*=dev-server]');
+        iframe && iframe.setAttribute('aria-hidden', true);
+      }, 2000);
+    </script>
   </body>
 </html>
 

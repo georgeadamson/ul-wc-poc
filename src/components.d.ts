@@ -143,15 +143,6 @@ export namespace Components {
     'src'?: string;
   }
 
-  interface MyComponent {
-    'first': string;
-    'last': string;
-  }
-  interface MyComponentAttributes extends StencilHTMLAttributes {
-    'first'?: string;
-    'last'?: string;
-  }
-
   interface IeaScrollPosition {
     'watch': string;
   }
@@ -182,7 +173,6 @@ declare global {
     'IeaLazy': Components.IeaLazy;
     'IeaLogo': Components.IeaLogo;
     'IeaLogoMagnum': Components.IeaLogoMagnum;
-    'MyComponent': Components.MyComponent;
     'IeaScrollPosition': Components.IeaScrollPosition;
     'IeaSkipToContent': Components.IeaSkipToContent;
   }
@@ -198,7 +188,6 @@ declare global {
     'iea-lazy': Components.IeaLazyAttributes;
     'iea-logo': Components.IeaLogoAttributes;
     'iea-logo-magnum': Components.IeaLogoMagnumAttributes;
-    'my-component': Components.MyComponentAttributes;
     'iea-scroll-position': Components.IeaScrollPositionAttributes;
     'iea-skip-to-content': Components.IeaSkipToContentAttributes;
   }
@@ -264,12 +253,6 @@ declare global {
     new (): HTMLIeaLogoMagnumElement;
   };
 
-  interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {}
-  var HTMLMyComponentElement: {
-    prototype: HTMLMyComponentElement;
-    new (): HTMLMyComponentElement;
-  };
-
   interface HTMLIeaScrollPositionElement extends Components.IeaScrollPosition, HTMLStencilElement {}
   var HTMLIeaScrollPositionElement: {
     prototype: HTMLIeaScrollPositionElement;
@@ -293,7 +276,6 @@ declare global {
     'iea-lazy': HTMLIeaLazyElement
     'iea-logo': HTMLIeaLogoElement
     'iea-logo-magnum': HTMLIeaLogoMagnumElement
-    'my-component': HTMLMyComponentElement
     'iea-scroll-position': HTMLIeaScrollPositionElement
     'iea-skip-to-content': HTMLIeaSkipToContentElement
   }
@@ -309,7 +291,6 @@ declare global {
     'iea-lazy': HTMLIeaLazyElement;
     'iea-logo': HTMLIeaLogoElement;
     'iea-logo-magnum': HTMLIeaLogoMagnumElement;
-    'my-component': HTMLMyComponentElement;
     'iea-scroll-position': HTMLIeaScrollPositionElement;
     'iea-skip-to-content': HTMLIeaSkipToContentElement;
   }

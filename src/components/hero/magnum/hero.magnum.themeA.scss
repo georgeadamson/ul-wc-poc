@@ -1,3 +1,5 @@
+@import '../../../global/hide.scss';
+
 .themeA {
   .img {
     display: block;
@@ -21,10 +23,12 @@
   }
 
   .heading {
-    color: #002663;
-    font-size: 2.5rem;
-    font-weight: 200;
-    text-align: center;
+    // color: #002663;
+    // font-size: 2.5rem;
+    // font-weight: 200;
+    // text-align: center;
+
+    @include a11y-hide();
   }
 
   .bodycopy {
