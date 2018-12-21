@@ -1,24 +1,17 @@
-import {
-  Component,
-  Prop,
-  Element,
-  Event,
-  EventEmitter,
-  State,
-  Watch
-} from "@stencil/core";
+import { Component, Prop, Element, Event, EventEmitter, State, Watch } from '@stencil/core';
 
 // Helper to generate custom css style rule
 // to control height of aspect-ratio element relative to width:
-function styleForAspectSpacer(aspectRatio) {
+// If we didn't need to support IE11 then setting a CSS --variable might be better.
+function aspectHeightStyle(aspectRatio) {
   return {
-    paddingBottom: 100 * aspectRatio + "%"
+    paddingTop: 100 * aspectRatio + '%'
   };
 }
 
 @Component({
-  tag: "aup-img",
-  styleUrl: "img.scss",
+  tag: 'aup-img',
+  styleUrl: 'img.scss',
   shadow: true
 })
 export class MyComponent {
@@ -28,14 +21,15 @@ export class MyComponent {
   @Prop() alt: string;
   @Prop() class: string;
 
-  // Optional: Set both to calculate aspect ratio and prevent reflow:
+  // Optional: Only used when both are specified, to calculate aspect ratio.
+  // Setting these correctly will prevent reflow when image finally loads:
   @Prop() width: string;
   @Prop() height: string;
 
   // Private: Flag to track when img has loaded:
   @State() loaded: boolean;
 
-  // Private: Will store array of children passed into component. Typically a placeholder while loading:
+  // Private: Will store array of placeholder children passed into component:
   children: Element[];
 
   // This component:
@@ -44,71 +38,60 @@ export class MyComponent {
   @Event() load: EventEmitter;
 
   // Reset loaded flag when src is changed:
-  @Watch("src")
+  @Watch('src')
   srcChange(newValue, oldValue) {
     this.loaded = newValue !== oldValue;
   }
 
   componentWillLoad() {
-    const host = this.host;
-
     // Inspired by https://stackoverflow.com/questions/52421298/web-components-how-to-work-with-children
-    this.children = Array.from(host.children);
-    host.innerHTML = "";
+    this.children = Array.from(this.host.children);
   }
 
   onLoad = () => {
     // Raise custom load event:
     this.loaded = true;
-    this.load.emit();
+    this.load.emit(this.src);
   };
 
   render() {
-    const {
-      src,
-      srcset,
-      sizes,
-      alt,
-      class: className,
-      width,
-      height,
-      loaded,
-      onLoad,
-      children
-    } = this;
+    const { src, srcset, sizes, width, height, loaded, onLoad, children } = this;
 
+    let { alt, class: className } = this;
     let placeholder;
 
+    alt = alt ? alt.trim() : '';
+    className = 'img' + (className ? ' ' + className : '');
+
     if (!loaded) {
-      // Make absolutely sure we have usable numbers: (And revent divide by zero error etc)
+      const customPlaceholder =
+        children && children.length ? (
+          <div class="children">
+            <slot name="placeholder" />
+          </div>
+        ) : null;
+
+      // Make absolutely sure we have usable numbers: (Prevent divide by zero error etc)
       const aspectRatio =
         width &&
         height &&
-        parseInt("" + width) &&
-        parseInt("" + height) &&
-        parseInt("" + height) / parseInt("" + width);
-      const hasChildren = !!(children && children.length);
+        parseInt('' + width) &&
+        parseInt('' + height) &&
+        parseInt('' + height) / parseInt('' + width);
 
-      // When we know the aspect ratio we can make a placeholder with same dimensions:
+      // When we know the aspect ratio we add a placeholder with same dimensions:
       placeholder = aspectRatio ? (
-        // Placeholder to maintain aspect ratio & contain children:
         <div class="aspect">
-          <div
-            class="aspect__spacer"
-            style={styleForAspectSpacer(aspectRatio)}
-          />
-          {hasChildren && (
-            <div class="children aspect__children">{children}</div>
-          )}
+          <div class="spacer" style={aspectHeightStyle(aspectRatio)} />
+          {customPlaceholder}
         </div>
       ) : (
-        // Placeholder just to contain children:
-        // TODO: Fix undefined children
-        hasChildren && <div class="children">{children}</div>
+        customPlaceholder
       );
     }
 
-    // The alt.trim() fixes cases where an author has accidentally provided only whitespace:
+    // Tip: The alt.trim() fixes cases where an author has accidentally provided only whitespace.
+    // Tip: We toggle the hidden attribute so that brands can customise the transition.
     return [
       placeholder,
 
@@ -116,7 +99,7 @@ export class MyComponent {
         src={src}
         srcset={srcset}
         sizes={sizes}
-        alt={alt ? alt.trim() : ""}
+        alt={alt}
         class={className}
         hidden={!loaded}
         onLoad={onLoad}

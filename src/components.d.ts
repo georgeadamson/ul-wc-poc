@@ -12,6 +12,9 @@ import '@stencil/core';
 
 export namespace Components {
 
+  interface IeaCarousel {}
+  interface IeaCarouselAttributes extends StencilHTMLAttributes {}
+
   interface IeaField {
     'className': string;
     'id': string;
@@ -78,20 +81,24 @@ export namespace Components {
     'bodycopy': string;
     'heading': string;
     'headingLevel': number;
+    'height': string;
     'src': string;
     'subheading': string;
     'target': string;
     'theme': string;
+    'width': string;
   }
   interface IeaHeroMagnumAttributes extends StencilHTMLAttributes {
     'alt'?: string;
     'bodycopy'?: string;
     'heading'?: string;
     'headingLevel'?: number;
+    'height'?: string;
     'src'?: string;
     'subheading'?: string;
     'target'?: string;
     'theme'?: string;
+    'width'?: string;
   }
 
   interface AupImg {
@@ -119,6 +126,24 @@ export namespace Components {
   }
   interface IeaLazyAttributes extends StencilHTMLAttributes {
     'placeholder'?: string;
+  }
+
+  interface AupLink {
+    'events': boolean;
+    'href': string;
+    'id': string;
+    'rel': string;
+    'target': string;
+    'targetMessage': string;
+  }
+  interface AupLinkAttributes extends StencilHTMLAttributes {
+    'events'?: boolean;
+    'href'?: string;
+    'id'?: string;
+    'onTracking'?: (event: CustomEvent) => void;
+    'rel'?: string;
+    'target'?: string;
+    'targetMessage'?: string;
   }
 
   interface IeaLogo {
@@ -163,6 +188,7 @@ export namespace Components {
 
 declare global {
   interface StencilElementInterfaces {
+    'IeaCarousel': Components.IeaCarousel;
     'IeaField': Components.IeaField;
     'IeaFooterNav': Components.IeaFooterNav;
     'IeaGlobalNavDove': Components.IeaGlobalNavDove;
@@ -171,6 +197,7 @@ declare global {
     'IeaHeroMagnum': Components.IeaHeroMagnum;
     'AupImg': Components.AupImg;
     'IeaLazy': Components.IeaLazy;
+    'AupLink': Components.AupLink;
     'IeaLogo': Components.IeaLogo;
     'IeaLogoMagnum': Components.IeaLogoMagnum;
     'IeaScrollPosition': Components.IeaScrollPosition;
@@ -178,6 +205,7 @@ declare global {
   }
 
   interface StencilIntrinsicElements {
+    'iea-carousel': Components.IeaCarouselAttributes;
     'iea-field': Components.IeaFieldAttributes;
     'iea-footer-nav': Components.IeaFooterNavAttributes;
     'iea-global-nav-dove': Components.IeaGlobalNavDoveAttributes;
@@ -186,12 +214,19 @@ declare global {
     'iea-hero-magnum': Components.IeaHeroMagnumAttributes;
     'aup-img': Components.AupImgAttributes;
     'iea-lazy': Components.IeaLazyAttributes;
+    'aup-link': Components.AupLinkAttributes;
     'iea-logo': Components.IeaLogoAttributes;
     'iea-logo-magnum': Components.IeaLogoMagnumAttributes;
     'iea-scroll-position': Components.IeaScrollPositionAttributes;
     'iea-skip-to-content': Components.IeaSkipToContentAttributes;
   }
 
+
+  interface HTMLIeaCarouselElement extends Components.IeaCarousel, HTMLStencilElement {}
+  var HTMLIeaCarouselElement: {
+    prototype: HTMLIeaCarouselElement;
+    new (): HTMLIeaCarouselElement;
+  };
 
   interface HTMLIeaFieldElement extends Components.IeaField, HTMLStencilElement {}
   var HTMLIeaFieldElement: {
@@ -241,6 +276,12 @@ declare global {
     new (): HTMLIeaLazyElement;
   };
 
+  interface HTMLAupLinkElement extends Components.AupLink, HTMLStencilElement {}
+  var HTMLAupLinkElement: {
+    prototype: HTMLAupLinkElement;
+    new (): HTMLAupLinkElement;
+  };
+
   interface HTMLIeaLogoElement extends Components.IeaLogo, HTMLStencilElement {}
   var HTMLIeaLogoElement: {
     prototype: HTMLIeaLogoElement;
@@ -266,6 +307,7 @@ declare global {
   };
 
   interface HTMLElementTagNameMap {
+    'iea-carousel': HTMLIeaCarouselElement
     'iea-field': HTMLIeaFieldElement
     'iea-footer-nav': HTMLIeaFooterNavElement
     'iea-global-nav-dove': HTMLIeaGlobalNavDoveElement
@@ -274,6 +316,7 @@ declare global {
     'iea-hero-magnum': HTMLIeaHeroMagnumElement
     'aup-img': HTMLAupImgElement
     'iea-lazy': HTMLIeaLazyElement
+    'aup-link': HTMLAupLinkElement
     'iea-logo': HTMLIeaLogoElement
     'iea-logo-magnum': HTMLIeaLogoMagnumElement
     'iea-scroll-position': HTMLIeaScrollPositionElement
@@ -281,6 +324,7 @@ declare global {
   }
 
   interface ElementTagNameMap {
+    'iea-carousel': HTMLIeaCarouselElement;
     'iea-field': HTMLIeaFieldElement;
     'iea-footer-nav': HTMLIeaFooterNavElement;
     'iea-global-nav-dove': HTMLIeaGlobalNavDoveElement;
@@ -289,6 +333,7 @@ declare global {
     'iea-hero-magnum': HTMLIeaHeroMagnumElement;
     'aup-img': HTMLAupImgElement;
     'iea-lazy': HTMLIeaLazyElement;
+    'aup-link': HTMLAupLinkElement;
     'iea-logo': HTMLIeaLogoElement;
     'iea-logo-magnum': HTMLIeaLogoMagnumElement;
     'iea-scroll-position': HTMLIeaScrollPositionElement;

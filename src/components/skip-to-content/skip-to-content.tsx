@@ -1,8 +1,8 @@
-import { Component, Prop } from "@stencil/core";
+import { Component, Prop } from '@stencil/core';
 
 @Component({
-  tag: "iea-skip-to-content",
-  styleUrl: "skip-to-content.scss",
+  tag: 'iea-skip-to-content',
+  styleUrl: 'skip-to-content.scss',
   shadow: true
 })
 export class MyComponent {
@@ -10,7 +10,7 @@ export class MyComponent {
   contentId: string;
 
   @Prop()
-  text: string = "Skip to main content";
+  text: string = 'Skip to main content';
 
   render() {
     let contentId = this.contentId;
@@ -21,17 +21,17 @@ export class MyComponent {
         // Attempt to find the main content ourselves:
         document.querySelector('#main-content,main,[role="main"]') ||
         // @ts-ignore
-        (document.querySelector("header") || {}).nextElementSibling;
+        (document.querySelector('header') || {}).nextElementSibling;
 
       // Give the element an id if it hasn't got one already:
       if (contentElem && !contentElem.id) {
-        contentElem.id = "main-content";
+        contentElem.id = 'main-content';
       }
 
       contentId = contentElem && contentElem.id;
     }
 
-    const href = contentId ? "#" + contentId : undefined;
+    const href = contentId ? '#' + contentId : undefined;
 
     return <a href={href}>{this.text}</a>;
   }

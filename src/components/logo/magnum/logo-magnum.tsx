@@ -1,22 +1,22 @@
-import { Component, Prop } from "@stencil/core";
+import { Component, Prop } from '@stencil/core';
 //import LogoComponent from "./logo.behaviour";
 
 @Component({
-  tag: "iea-logo-magnum",
-  styleUrl: "logo-magnum.scss",
+  tag: 'iea-logo-magnum',
+  styleUrl: 'logo-magnum.scss',
   shadow: true
 })
 export class MyComponent {
   @Prop()
-  href: string = "/";
+  href: string = '/';
 
   // This is used as img alt text:
   // (Matches logo[alt] selector in css warnings)
   @Prop()
-  alt: string = "";
+  alt: string = '';
 
   @Prop()
-  src: string = "";
+  src: string = '';
 
   render() {
     return (
@@ -30,5 +30,3 @@ export class MyComponent {
     );
   }
 }
-
-console.log(MyComponent);

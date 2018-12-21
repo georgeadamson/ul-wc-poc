@@ -28,6 +28,11 @@ export class HeroComponent {
   @Prop()
   alt: string = ""; // Leave blank if image is only decorative
 
+  // Optional: Only used when both are specified, to calculate aspect ratio.
+  // Setting these correctly will prevent reflow when image finally loads:
+  @Prop() width: string;
+  @Prop() height: string;
+
   @Prop()
   target: string;
 
@@ -37,15 +42,24 @@ export class HeroComponent {
   // https://www.dove.com/content/dam/unilever/dove/united_kingdom/general_image/personal_care_unidentified/personal_care_unidentified/day01_shot01_079_hero-279551.jpg.ulenscale.767x360.jpg
 
   render() {
-    const { src, alt, heading, subheading, bodycopy, theme } = this;
+    const {
+      src,
+      alt,
+      width,
+      height,
+      heading,
+      subheading,
+      bodycopy,
+      theme
+    } = this;
     const themeClass = "theme" + theme;
     const Hx = heading && "h" + this.headingLevel; // h1, h2 etc
 
     // Prepare img markup if enough props supplied:
     const img = src && (
       <div class="img-box">
-        <aup-img class="img" src={src} alt={alt}>
-          <div>Loading...</div>
+        <aup-img class="img" src={src} alt={alt} width={width} height={height}>
+          <div slot="placeholder">Placeholder...</div>
         </aup-img>
       </div>
     );
