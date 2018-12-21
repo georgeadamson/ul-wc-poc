@@ -11,7 +11,7 @@ function emitTrackingEvent(e?: MouseEvent) {
   const elem: MyComponent = this;
   const host = elem.host;
 
-  // Prepare details to pass to tracking handler:
+  // Prepare details to pass to the tracking handler:
   const detail = {
     type: e.type,
     tagName: 'a',
@@ -38,11 +38,13 @@ function emitTrackingEvent(e?: MouseEvent) {
 export class MyComponent {
   @Prop() href: string;
   @Prop() id: string;
-  @Prop() rel: string; // Enforces rel="noopener" when target="_blank"
   @Prop() target: string;
 
-  // Only used when target="_blank"
-  @Prop() targetMessage: string = 'Opens in new window';
+  // Defaults to rel="noopener" when target="_blank"
+  @Prop() rel: string;
+
+  // Defaults to 'Opens in new window' when target="_blank":
+  @Prop() tooltip: string;
 
   // Links are special. Assume we always want events enabled for analytics tracking:
   @Prop() events: boolean = true;
@@ -52,21 +54,11 @@ export class MyComponent {
   // This component:
   @Element() host: HTMLDivElement;
 
-  // This event exists purely to allow some other component to do analytics tracking:
-  onClick = () => {
-    if (this.events) {
-      emitTrackingEvent.call(this);
-    }
-  };
-
   render() {
-    const { host, href, target, id, targetMessage, events, onClick } = this;
-    let { rel } = this;
-
-    let rel: string;
+    const { host, href, target, id, events } = this;
+    let { rel = '', tooltip } = this;
     let ariaDescribedById: string;
-    let ariaDescriptionElem: object;
-    let tooltip: string;
+    let ariaDescribedByElem: object;
 
     // Attempt to detect when link is image instead of text:
     const isImageLink = !host.innerText && Array.from(host.children).some(isImgElement);
@@ -78,8 +70,17 @@ export class MyComponent {
     // 3. They should display a tooltip via [data-tootip]:focus and [data-tootip]:hover selectors
     // 4. Expose a class on the anchor element to allow brand to style image links differently.
     if (target === '_blank') {
-      // Vulnerability patch: rel="noopener": https://developers.google.com/web/tools/lighthouse/audits/noopener
-      if (!rel || !~rel.indexOf('noopener')) rel = (rel || '') + ' noopener';
+      // Browser vulnerability patch rel="noopener":
+      // More info: https://developers.google.com/web/tools/lighthouse/audits/noopener
+      if (!~rel.indexOf('noopener')) {
+        rel = rel + ' noopener';
+      }
+
+      // Default warning when none specified:
+      // TODO: Smarter i18n for default texts
+      if (!tooltip) {
+        tooltip = 'Opens in new window';
+      }
 
       ariaDescribedById =
         'describedby-' +
@@ -88,29 +89,28 @@ export class MyComponent {
             .toString(36)
             .substr(2));
 
-      // We've used <i> tag here to save bytes. It's safe to change to <div> if a daft markup test tool objects to the <i> tag.
-      ariaDescriptionElem = (
+      // We've used <i> tag here to save bytes. It's safe to change to <div> if a daft markup test tool complains about the <i> tag.
+      ariaDescribedByElem = (
         <i hidden id={ariaDescribedById}>
-          {targetMessage}
+          {tooltip}
         </i>
       );
-
-      tooltip = targetMessage;
     }
 
     return (
       <a
         id={id}
+        rel={rel}
         href={href}
         target={target || undefined}
         aria-describedby={ariaDescribedById}
-        data-tooltip={tooltip}
-        onClick={events ? onClick : undefined}
         class={isImageLink ? 'is-img-link' : undefined}
-        rel={rel}
+        data-tooltip={tooltip}
+        // This event exists purely to allow another component to do analytics tracking:
+        onClick={events ? emitTrackingEvent.bind(this) : undefined}
       >
         <slot />
-        {ariaDescriptionElem}
+        {ariaDescribedByElem}
       </a>
     );
   }

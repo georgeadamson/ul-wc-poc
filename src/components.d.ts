@@ -134,7 +134,7 @@ export namespace Components {
     'id': string;
     'rel': string;
     'target': string;
-    'targetMessage': string;
+    'tooltip': string;
   }
   interface AupLinkAttributes extends StencilHTMLAttributes {
     'events'?: boolean;
@@ -143,7 +143,7 @@ export namespace Components {
     'onTracking'?: (event: CustomEvent) => void;
     'rel'?: string;
     'target'?: string;
-    'targetMessage'?: string;
+    'tooltip'?: string;
   }
 
   interface IeaLogo {
