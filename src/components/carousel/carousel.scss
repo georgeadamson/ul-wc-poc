@@ -1,0 +1,33 @@
+:host {
+  * {
+    box-sizing: border-box;
+  }
+
+  ul {
+    display: block;
+    white-space: nowrap;
+    width: 100%;
+
+    // To help iOS:
+    -webkit-overflow-scrolling: touch;
+
+    overflow-x: auto;
+
+    /* snap to points */
+    -webkit-scroll-snap-type: mandatory;
+    -ms-scroll-snap-type: mandatory;
+    scroll-snap-type: mandatory;
+    scroll-snap-type: x mandatory;
+
+    /* x interval for snapping (100% of container width) */
+    -webkit-scroll-snap-points-x: repeat(100%);
+    -ms-scroll-snap-points-x: repeat(100%);
+    scroll-snap-points-x: repeat(100%);
+  }
+
+  li {
+    display: inline-block;
+    scroll-snap-align: center;
+    width: 33%;
+  }
+}
