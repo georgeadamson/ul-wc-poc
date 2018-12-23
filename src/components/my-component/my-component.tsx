@@ -1,4 +1,4 @@
-import { Component, Prop } from "@stencil/core";
+import { Component, Prop } from '@stencil/core';
 
 // @Component({
 //   tag: "my-component",
@@ -16,7 +16,12 @@ import { Component, Prop } from "@stencil/core";
 //   }
 // }
 
-class MyComponent {
+@Component({
+  tag: 'my-component',
+  styleUrl: 'my-component.css',
+  shadow: true
+})
+export class MyComponent {
   @Prop()
   first: string;
   @Prop()
@@ -28,7 +33,7 @@ class MyComponent {
 }
 
 export default Component({
-  tag: "my-component",
-  styleUrl: "my-component.css",
+  tag: 'my-component',
+  styleUrl: 'my-component.css',
   shadow: true
 }).bind(MyComponent);

@@ -1,8 +1,10 @@
-import { Component, Prop } from "@stencil/core";
+import { Component, Prop } from '@stencil/core';
+
+// INCOMPLETE
 
 @Component({
-  tag: "iea-field",
-  styleUrl: "field.scss",
+  tag: 'iea-field',
+  styleUrl: 'field.scss',
   shadow: true
 })
 export class MyComponent {
@@ -30,20 +32,12 @@ export class MyComponent {
   className: string;
 
   render() {
-    const {
-      type,
-      id,
-      value,
-      label,
-      placeholder,
-      className: _className,
-      pattern: _pattern
-    } = this;
+    const { type, id, value, label, placeholder, className: _className, pattern: _pattern } = this;
 
-    const className = "field" + (_className ? " " + _className : "");
+    const className = 'field' + (_className ? ' ' + _className : '');
 
     // To make iOS show number pad when type=number:
-    const pattern = !_pattern && type === "number" ? "\\d*" : _pattern;
+    const pattern = !_pattern && type === 'number' ? '\\d*' : _pattern;
 
     // Important: Label is deliberately AFTER the input:
     // This allows input state to affect label style via css.

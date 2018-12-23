@@ -12,6 +12,14 @@ import '@stencil/core';
 
 export namespace Components {
 
+  interface AupBreakpoint {}
+  interface AupBreakpointAttributes extends StencilHTMLAttributes {
+    /**
+    * This component emits a breakpoint events whenever CSS breakpoint has changed:
+    */
+    'onBreakpoint'?: (event: CustomEvent) => void;
+  }
+
   interface IeaCarousel {}
   interface IeaCarouselAttributes extends StencilHTMLAttributes {}
 
@@ -129,20 +137,59 @@ export namespace Components {
   }
 
   interface AupLink {
+    /**
+    * Default true because we typically want to emit link click events for analytics tracking.
+    */
     'events': boolean;
+    /**
+    * Required: href attribute for the link. Avoid href="#".
+    */
     'href': string;
+    /**
+    * Optional id attribute for the link. Also used to associate aria-describedby when target="_blank".
+    */
     'id': string;
+    /**
+    * Optional rel attribute for the link. Automatically default to rel="noopener" when target="_blank" to patch browser vulnerability.
+    */
     'rel': string;
+    /**
+    * Optional target attribute for the link. Set target="_blank" to open in new window.
+    */
     'target': string;
+    /**
+    * Optional tooltip text. When target="_blank" this defaults to 'Opens in new window' and is used for aria-describedby. TODO: Smarter i18n for default texts.
+    */
     'tooltip': string;
   }
   interface AupLinkAttributes extends StencilHTMLAttributes {
+    /**
+    * Default true because we typically want to emit link click events for analytics tracking.
+    */
     'events'?: boolean;
+    /**
+    * Required: href attribute for the link. Avoid href="#".
+    */
     'href'?: string;
+    /**
+    * Optional id attribute for the link. Also used to associate aria-describedby when target="_blank".
+    */
     'id'?: string;
+    /**
+    * This components emits tracking events on click, to be handled by the tracking component.
+    */
     'onTracking'?: (event: CustomEvent) => void;
+    /**
+    * Optional rel attribute for the link. Automatically default to rel="noopener" when target="_blank" to patch browser vulnerability.
+    */
     'rel'?: string;
+    /**
+    * Optional target attribute for the link. Set target="_blank" to open in new window.
+    */
     'target'?: string;
+    /**
+    * Optional tooltip text. When target="_blank" this defaults to 'Opens in new window' and is used for aria-describedby. TODO: Smarter i18n for default texts.
+    */
     'tooltip'?: string;
   }
 
@@ -168,6 +215,15 @@ export namespace Components {
     'src'?: string;
   }
 
+  interface MyComponent {
+    'first': string;
+    'last': string;
+  }
+  interface MyComponentAttributes extends StencilHTMLAttributes {
+    'first'?: string;
+    'last'?: string;
+  }
+
   interface IeaScrollPosition {
     'watch': string;
   }
@@ -188,6 +244,7 @@ export namespace Components {
 
 declare global {
   interface StencilElementInterfaces {
+    'AupBreakpoint': Components.AupBreakpoint;
     'IeaCarousel': Components.IeaCarousel;
     'IeaField': Components.IeaField;
     'IeaFooterNav': Components.IeaFooterNav;
@@ -200,11 +257,13 @@ declare global {
     'AupLink': Components.AupLink;
     'IeaLogo': Components.IeaLogo;
     'IeaLogoMagnum': Components.IeaLogoMagnum;
+    'MyComponent': Components.MyComponent;
     'IeaScrollPosition': Components.IeaScrollPosition;
     'IeaSkipToContent': Components.IeaSkipToContent;
   }
 
   interface StencilIntrinsicElements {
+    'aup-breakpoint': Components.AupBreakpointAttributes;
     'iea-carousel': Components.IeaCarouselAttributes;
     'iea-field': Components.IeaFieldAttributes;
     'iea-footer-nav': Components.IeaFooterNavAttributes;
@@ -217,10 +276,17 @@ declare global {
     'aup-link': Components.AupLinkAttributes;
     'iea-logo': Components.IeaLogoAttributes;
     'iea-logo-magnum': Components.IeaLogoMagnumAttributes;
+    'my-component': Components.MyComponentAttributes;
     'iea-scroll-position': Components.IeaScrollPositionAttributes;
     'iea-skip-to-content': Components.IeaSkipToContentAttributes;
   }
 
+
+  interface HTMLAupBreakpointElement extends Components.AupBreakpoint, HTMLStencilElement {}
+  var HTMLAupBreakpointElement: {
+    prototype: HTMLAupBreakpointElement;
+    new (): HTMLAupBreakpointElement;
+  };
 
   interface HTMLIeaCarouselElement extends Components.IeaCarousel, HTMLStencilElement {}
   var HTMLIeaCarouselElement: {
@@ -294,6 +360,12 @@ declare global {
     new (): HTMLIeaLogoMagnumElement;
   };
 
+  interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {}
+  var HTMLMyComponentElement: {
+    prototype: HTMLMyComponentElement;
+    new (): HTMLMyComponentElement;
+  };
+
   interface HTMLIeaScrollPositionElement extends Components.IeaScrollPosition, HTMLStencilElement {}
   var HTMLIeaScrollPositionElement: {
     prototype: HTMLIeaScrollPositionElement;
@@ -307,6 +379,7 @@ declare global {
   };
 
   interface HTMLElementTagNameMap {
+    'aup-breakpoint': HTMLAupBreakpointElement
     'iea-carousel': HTMLIeaCarouselElement
     'iea-field': HTMLIeaFieldElement
     'iea-footer-nav': HTMLIeaFooterNavElement
@@ -319,11 +392,13 @@ declare global {
     'aup-link': HTMLAupLinkElement
     'iea-logo': HTMLIeaLogoElement
     'iea-logo-magnum': HTMLIeaLogoMagnumElement
+    'my-component': HTMLMyComponentElement
     'iea-scroll-position': HTMLIeaScrollPositionElement
     'iea-skip-to-content': HTMLIeaSkipToContentElement
   }
 
   interface ElementTagNameMap {
+    'aup-breakpoint': HTMLAupBreakpointElement;
     'iea-carousel': HTMLIeaCarouselElement;
     'iea-field': HTMLIeaFieldElement;
     'iea-footer-nav': HTMLIeaFooterNavElement;
@@ -336,6 +411,7 @@ declare global {
     'aup-link': HTMLAupLinkElement;
     'iea-logo': HTMLIeaLogoElement;
     'iea-logo-magnum': HTMLIeaLogoMagnumElement;
+    'my-component': HTMLMyComponentElement;
     'iea-scroll-position': HTMLIeaScrollPositionElement;
     'iea-skip-to-content': HTMLIeaSkipToContentElement;
   }

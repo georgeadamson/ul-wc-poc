@@ -17,9 +17,11 @@
     "test": "jest",
     "test.watch": "jest --watch",
     "test.e2e": "stencil test --e2e --screenshot",
-    "deploy": "npm version patch && stencil build && npm publish"
+    "deploy": "npm version patch && stencil build && npm publish",
+    "docs": "stencil build --docs"
   },
   "dependencies": {
+    "lodash": "^4.17.11",
     "nano-markdown": "^1.2.0"
   },
   "devDependencies": {

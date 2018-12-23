@@ -20,8 +20,7 @@ function emitTrackingEvent(e?: MouseEvent) {
     target: elem.target,
 
     // Attempt to derive link text or the img.alt:
-    // @ts-ignore
-    text: host && (host.innerText || (host.querySelector(IMG_SELECTOR) || {}).alt),
+    text: host && (host.innerText || ((host.querySelector(IMG_SELECTOR) || {}) as any).alt),
 
     // Experimental: Attempt to detect when click was triggered by keyboard:
     keyboard: !e.screenX && !e.screenY
@@ -32,31 +31,52 @@ function emitTrackingEvent(e?: MouseEvent) {
 
 @Component({
   tag: 'aup-link',
-  styleUrl: 'link.scss',
-  shadow: true
+  styleUrl: 'link.scss'
+  //scoped: true
 })
 export class MyComponent {
+  /**
+   * Required: href attribute for the link. Avoid href="#".
+   */
   @Prop() href: string;
+
+  /**
+   * Optional id attribute for the link. Also used to associate aria-describedby when target="_blank".
+   */
   @Prop() id: string;
+
+  /**
+   * Optional target attribute for the link. Set target="_blank" to open in new window.
+   */
   @Prop() target: string;
 
-  // Defaults to rel="noopener" when target="_blank"
+  /**
+   * Optional rel attribute for the link. Automatically default to rel="noopener" when target="_blank" to patch browser vulnerability.
+   */
   @Prop() rel: string;
 
-  // Defaults to 'Opens in new window' when target="_blank":
-  @Prop() tooltip: string;
+  /**
+   * Optional tooltip text. When target="_blank" this defaults to 'Opens in new window' and is used for aria-describedby.
+   * TODO: Smarter i18n for default texts.
+   */
+  @Prop() tooltip: string = this.target === '_blank' && 'Opens in new window';
 
-  // Links are special. Assume we always want events enabled for analytics tracking:
+  /**
+   * Default true because we typically want to emit link click events for analytics tracking.
+   */
   @Prop() events: boolean = true;
 
+  /**
+   * This components emits tracking events on click, to be handled by the tracking component.
+   */
   @Event() tracking: EventEmitter;
 
-  // This component:
+  // Private: Internal reference to this component:
   @Element() host: HTMLDivElement;
 
   render() {
-    const { host, href, target, id, events } = this;
-    let { rel = '', tooltip } = this;
+    const { host, href, target, id, tooltip, events } = this;
+    let { rel } = this;
     let ariaDescribedById: string;
     let ariaDescribedByElem: object;
 
@@ -72,14 +92,8 @@ export class MyComponent {
     if (target === '_blank') {
       // Browser vulnerability patch rel="noopener":
       // More info: https://developers.google.com/web/tools/lighthouse/audits/noopener
-      if (!~rel.indexOf('noopener')) {
-        rel = rel + ' noopener';
-      }
-
-      // Default warning when none specified:
-      // TODO: Smarter i18n for default texts
-      if (!tooltip) {
-        tooltip = 'Opens in new window';
+      if (!rel || !~rel.indexOf('noopener')) {
+        rel = (rel || '') + ' noopener';
       }
 
       ariaDescribedById =
@@ -105,7 +119,7 @@ export class MyComponent {
         target={target || undefined}
         aria-describedby={ariaDescribedById}
         class={isImageLink ? 'is-img-link' : undefined}
-        data-tooltip={tooltip}
+        data-tooltip={tooltip || undefined}
         // This event exists purely to allow another component to do analytics tracking:
         onClick={events ? emitTrackingEvent.bind(this) : undefined}
       >
