@@ -7,12 +7,21 @@
       content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
     />
     <title>Superduperdemo</title>
-    <link rel="stylesheet" href="/build/iea-wc.css" />
+
+    <!-- Experimental: Async stylesheet load: -->
+    <link rel="preload" href="/build/iea-wc.css" as="style" onload="this.rel='stylesheet'" />
+    <noscript><link rel="stylesheet" href="/build/iea-wc.css"/></noscript>
+
     <script src="/build/iea-wc.js"></script>
+
+    <!-- Experimental: DNS lookup before it's needed: -->
+    <link rel="preconnect" crossorigin href="https://www.magnumicecream.com" />
+    <link rel="preconnect" crossorigin href="https://www.dove.com" />
+
+    <aup-breakpoint></aup-breakpoint>
   </head>
 
   <body>
-    xx<aup-breakpoint></aup-breakpoint>
     <header>
       <iea-skip-to-content></iea-skip-to-content>
 

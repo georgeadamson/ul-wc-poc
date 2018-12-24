@@ -1,21 +1,41 @@
+@import '../common/sass/functions/str-replace';
+
 // #controvertial
-// This is a cunning way to expose current breakpoint to javascript.
+// This is a cunning way to define breakpoints in one place and expose them to javascript.
 // In JS use: var bp = window.getComputedStyle(document.head).fontFamily
 // Convention: The breakpoint string always starts with current breakpoint name.
 // TODO: Auto-generate the code from a map of breakpoints.
+
+// Define "min-width" of each breakpoint.
+// The first breakpoint will be "mobile first" with no media query
+// and it will apply down to the very smallest devices.
+$breakpoints: (
+  xs: 320px,
+  sm: 768px,
+  md: 992px,
+  lg: 1200px,
+  xlg: 2560px
+);
+
 head {
-  // Mobile first:
-  font-family: xs;
+  $count: length($breakpoints);
+  $index: 1;
 
-  @media (min-width: 768px) {
-    font-family: sm;
-  }
+  // Derive strings of breakpoint names & sizes, eg: "xs|sm|md|lg" & "320px|768px|992px|1200px":
+  $names: str-replace(str-replace(inspect(map-keys($breakpoints)), ' ', ''), ',', '|');
+  $sizes: str-replace(str-replace(inspect(map-values($breakpoints)), ' ', ''), ',', '|');
 
-  @media (min-width: 992px) {
-    font-family: md;
-  }
+  @each $name, $size in $breakpoints {
+    @if 1 == $index {
+      // Mobile first: (default, no media query)
+      font-family: '#{$name}', '#{$names}', '#{$sizes}';
+    } @else {
+      // Larger breakpoints apply via a media query:
+      @media (min-width: $size) {
+        font-family: '#{$name}', '#{$names}', '#{$sizes}';
+      }
+    }
 
-  @media (min-width: 1200px) {
-    font-family: lg;
+    $index: $index + 1;
   }
 }

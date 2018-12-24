@@ -1,14 +1,25 @@
 import { Component, Event, EventEmitter } from '@stencil/core';
 import debounce from '../../common/utils/events/debounce';
 
-// Lookup of classnames for each breakpoint:
-// TODO: Derive this lookup from CSS.
-const breakpointClassesFor = {
-  xs: 'xs lte-xs lte-sm lte-md lte-lg gte-xs',
-  sm: 'sm lte-sm lte-md lte-lg gte-xs gte-sm',
-  md: 'md lte-md lte-lg gte-xs gte-sm gte-md',
-  lg: 'lg lte-lg gte-xs gte-sm gte-md gte-lg'
-};
+// Lookups of classnames for each breakpoint:
+// It will look something like this after being populated:
+// {
+//   lg: '1200px';
+//   md: '992px';
+//   sm: '768px';
+//   xs: '320px';
+// }
+let breakpointSizesLookup;
+
+// Lookups of classnames for each breakpoint:
+// It will look something like this after being populated:
+// {
+//   xs: 'xs lte-xs lte-sm lte-md lte-lg gte-xs',
+//   sm: 'sm lte-sm lte-md lte-lg gte-xs gte-sm',
+//   md: 'md lte-md lte-lg gte-xs gte-sm gte-md',
+//   lg: 'lg lte-lg gte-xs gte-sm gte-md gte-lg'
+// }
+let breakpointClassesLookup;
 
 // Cache a reference to commonly used elements to improve performance:
 const head = document.head;
@@ -20,15 +31,55 @@ const requestIdleCallback = 'requestIdleCallback' in window ? 'requestIdleCallba
 // Keep track of previous breakpoint so we can test when it changes:
 let prevBreakpoint: string;
 
+// Generate helper classes to populate breakpointClassesLookup[]:
+function generateBreakpointClassesLookup(index: number, allNames: string[]): string {
+  let lte = '';
+  let gte = '';
+  let i = allNames.length;
+
+  while (i--) {
+    const next = allNames[i];
+    if (index <= i) lte = ' lte-' + next + lte;
+    if (index >= i) gte = ' gte-' + next + gte;
+  }
+
+  return allNames[index] + lte + gte;
+}
+
 function onResize() {
-  const nextBreakpoint = window.getComputedStyle(head).fontFamily;
+  // Extract name of current breakpoint passed from global css via <head> font-family hack:
+  // Eg: head { font-family: xs, "xs|sm|md|lg", "320px|768px|992px|1200px"; }
+  // The 1st value is current breakpoint, 2nd is breakpoint names, 3rd is breakpoint sizes.
+  const breakpointsConfig = window
+    .getComputedStyle(head)
+    .fontFamily.replace(/"|\s/gi, '')
+    .split(',');
+
+  // Extract current breakpoint name, eg "xs":
+  const nextBreakpoint = breakpointsConfig.shift();
+
+  // Populate breakpointClassesLookup the first time onResize is called:
+  if (!breakpointClassesLookup) {
+    const allSizes = breakpointsConfig.pop().split('|');
+    const allNames = breakpointsConfig.pop().split('|');
+    let i = allNames.length;
+
+    breakpointSizesLookup = {};
+    breakpointClassesLookup = {};
+
+    while (i--) {
+      const name = allNames[i];
+      breakpointSizesLookup[name] = allSizes[i];
+      breakpointClassesLookup[name] = generateBreakpointClassesLookup(i, allNames);
+    }
+  }
 
   // Only proceed if the breakpoint has changed:
   if (nextBreakpoint !== prevBreakpoint) {
-    const nextClasses = nextBreakpoint && breakpointClassesFor[nextBreakpoint];
+    const nextClasses = nextBreakpoint && breakpointClassesLookup[nextBreakpoint];
 
     if (nextClasses) {
-      const prevClasses = prevBreakpoint && breakpointClassesFor[prevBreakpoint];
+      const prevClasses = prevBreakpoint && breakpointClassesLookup[prevBreakpoint];
 
       // Prepare function to run as soon as possible, to update css classes and raise event:
       const updateBreakpointClasses = () => {
@@ -69,7 +120,7 @@ export class MyComponent {
   @Event() breakpoint: EventEmitter;
 
   // Debounced event handler with "this" context:
-  onResize = debounce(onResize.bind(this), 100);
+  onResize = debounce(onResize, 100, this);
 
   componentWillLoad() {
     onResize.call(this);
