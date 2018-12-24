@@ -111,7 +111,9 @@ function onResize() {
 }
 
 @Component({
-  tag: 'aup-breakpoint'
+  tag: 'aup-breakpoint',
+  styleUrl: 'breakpoint.scss',
+  shadow: false // Not shadow because our css applies to <head>
 })
 export class MyComponent {
   /**
@@ -122,7 +124,8 @@ export class MyComponent {
   // Debounced event handler with "this" context:
   onResize = debounce(onResize, 100, this);
 
-  componentWillLoad() {
+  componentDidLoad() {
+    // We use componentDidLoad to ensure component styles have already been applied to <head>
     onResize.call(this);
     window.addEventListener('resize', this.onResize);
     window.addEventListener('orientationchange', this.onResize);
