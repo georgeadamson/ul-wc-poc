@@ -1,22 +1,15 @@
 import md from 'nano-markdown';
+import safe from './html-safe.js';
 
-// Strip <p>...</p> added by markdown helper:
-// TODO: Find a more efficient solution:
-export default function markdown(text, props) {
-  let result = md(text).replace(/^<p>|<\/p>$/g, '');
-  //console.log(props, props && props.target);
+// TODO: Consider migrating to:
+// - https://github.com/markdown-it/markdown-it or
+// - https://github.com/commonmark/commonmark.js
+// for more features, customisation & CommonMark standards but bigger download.
+// It will enable things like .disable(['link'])
 
-  // Hack for demo only!
-  if (props && props.target === '_blank') {
-    result = result.replace(
-      '<a href="http://bbc.co.uk">Read more</a>',
-      `<a target="_blank" 
-        href="http://bbc.co.uk" 
-        aria-describedby="_newwindow1"
-        data-tooltip="Opens in new window">Read more <i id="_newwindow1" hidden>Opens in new window</i></a>
-      `
-    );
-  }
-
-  return result;
+// 1. Escape any markup already in the text.
+// 2. Convert markdown to html.
+// 3. Strip leading <p> and trailing </p> added by markdown helper.
+export default function markdown(text, config) {
+  return md(safe(text)).replace(/^<p>|<\/p>$/g, '');
 }

@@ -2,6 +2,7 @@
   position: relative;
 
   // Middle line(s) of burger menu ☰ icon:
+  // The middle is made of 2 lines that can be animated to an X icon:
   &:before,
   &:after {
     background: $color;
@@ -14,10 +15,11 @@
     width: $size;
     top: calc(50% - 1px);
 
+    // To animate between open & close:
     transition: all 0.2s ease-out;
   }
 
-  // Upper & lower lines of burger menu ☰ icon:
+  // Top & bottom lines of burger menu ☰ icon:
   &:before {
     box-shadow: 0 -9px 0 0 $color, 0 9px 0 0 $color;
   }
@@ -25,9 +27,9 @@
 
 @mixin burger-icon-close() {
   &:before {
-    // Hide upper & lower lines or burger menu ☰ icon:
+    // Hide top & bottom lines or burger menu ☰ icon
+    // and angle to form part of X:
     box-shadow: none;
-    // Angle to form part of X:
     transform: rotateZ(-45deg);
   }
 

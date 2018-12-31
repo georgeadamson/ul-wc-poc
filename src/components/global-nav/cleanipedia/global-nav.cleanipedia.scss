@@ -1,0 +1,142 @@
+@import '../../../global/hide.scss';
+@import '../../../common/sass/mixins/burger-icon';
+
+:host {
+  // Questionable way to prevent top of page from being hidden under position:fixed .nav:
+  &:after {
+    content: '';
+    display: block;
+    height: 72px;
+
+    @media (min-width: 768px) {
+      height: 0;
+    }
+  }
+
+  // Mobile first styles:
+  .nav {
+    display: grid;
+    grid-template-columns: 135px auto 72px;
+    justify-items: center;
+
+    padding: 0;
+    position: fixed;
+    top: 0;
+    z-index: 999;
+    width: 100%;
+
+    font-weight: 100;
+    font-family: futura-pt, Arial, sans-serif;
+    font-size: 13px;
+    text-align: center;
+
+    > * {
+      height: 72px;
+    }
+  }
+
+  .items {
+    list-style: none;
+  }
+
+  /* Menu toggle button */
+  slot[name='toggle'] {
+    grid-row: 1;
+    grid-column: 1;
+    width: 140px;
+
+    background: #000;
+    border: none;
+    cursor: pointer;
+
+    padding: 24px;
+    width: 72px;
+    height: 72px;
+  }
+
+  button {
+    background: red;
+    @include burger-icon(24px, #fff);
+  }
+
+  .nav {
+    &[aria-expanded] {
+      // Animate between icons ☰ and X:
+      [slot='toggle'] {
+        @include burger-icon-close();
+      }
+
+      // Show menu:
+      .items {
+        background: #f5efe6;
+        display: block;
+        height: 100vh;
+        overflow-y: auto;
+        visibility: visible;
+      }
+    }
+  }
+
+  .items {
+  }
+
+  .item {
+    a {
+    }
+  }
+
+  .search {
+    background-color: #fff;
+
+    > * {
+      cursor: pointer;
+    }
+  }
+
+  // On non-mobile displays:
+  //
+
+  .logo {
+    background: #000;
+    display: flex;
+    grid-column: 1;
+
+    width: 100%;
+
+    > * {
+      width: 100px;
+      margin: auto;
+    }
+  }
+
+  .search {
+    background-color: #000;
+    grid-row: 2;
+    grid-column: 3;
+  }
+
+  .nav {
+    background: #000;
+
+    &:not([aria-expanded]) {
+      [class='item'] {
+        //display: none;
+      }
+    }
+  }
+
+  @media (min-width: 768px) {
+    [slot='toggle'] {
+      display: none;
+    }
+
+    // Not well supported yet :(
+    // https://developer.mozilla.org/en-US/docs/Web/CSS/:host-context()
+    :host-context([data-scrolly-px='0']) {
+      .nav,
+      .logo {
+        background: transparent;
+      }
+    }
+  }
+}

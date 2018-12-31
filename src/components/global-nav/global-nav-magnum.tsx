@@ -1,5 +1,5 @@
 import { Component, Prop, Element, Watch } from '@stencil/core';
-import togglePageNoScroll from '../../common/utils/dom/togglePageNoScroll';
+import togglePageNoScroll from '../../common/utils/dom/toggleScrollInhibitor';
 
 const styles = {
   logo: 'logo',

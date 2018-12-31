@@ -1,26 +1,31 @@
 import { Component, Prop, Element, Watch } from '@stencil/core';
-import togglePageNoScroll from '../../common/utils/dom/toggleScrollInhibitor';
 
-const styles = {
-  logo: 'logo',
-  search: 'search',
-  show: 'toggle-show',
-  hide: 'toggle-hide',
-  toggle: 'toggle'
-};
+// Helper to disable scrolling on body by toggling "overflow-y:hidden" style:
+import toggleScrollInhibitor from '../../common/utils/dom/toggleScrollInhibitor';
 
-// Prepare curried functions to filter child elements:
+// Helper to filter elements by their <slot="name">
 function filterBySlot(slot, item) {
   return slot ? item.slot === slot : !item.slot;
 }
-const byMenuItems = filterBySlot.bind(0, '');
+
+// Prepare curried functions to filter child elements:
 const byToggleButton = filterBySlot.bind(0, 'toggle');
 const bySearchBox = filterBySlot.bind(0, 'search');
 const byLogoLink = filterBySlot.bind(0, 'logo');
+const bySubheading = filterBySlot.bind(0, 'subheading');
+const byMenuItem = filterBySlot.bind(0, '');
+
+function groupMenuItems(children) {
+  return children.reduce(function(result, item) {
+    const submenu = item.getAttribute('data-submenu') || '1';
+    (result[submenu] || (result[submenu] = [])).push(item);
+    return result;
+  }, {});
+}
 
 @Component({
-  tag: 'iea-global-nav-dove',
-  styleUrl: 'dove/global-nav.dove.scss',
+  tag: 'iea-global-nav-cleanipedia',
+  styleUrl: 'cleanipedia/global-nav.cleanipedia.scss',
   shadow: true
 })
 export class MyComponent {
@@ -41,7 +46,7 @@ export class MyComponent {
 
   @Watch('expanded')
   onToggle(expanded: boolean) {
-    togglePageNoScroll(expanded, this.uid);
+    toggleScrollInhibitor(expanded, this.uid);
   }
 
   componentWillLoad() {
@@ -50,19 +55,19 @@ export class MyComponent {
 
     // Inspired by https://stackoverflow.com/questions/52421298/web-components-how-to-work-with-children
     self.children = Array.from(host.children);
-    host.innerHTML = '';
+    //host.innerHTML = '';
 
     if (!host.id) {
       host.id = self.uid;
     }
 
     if (self.expanded) {
-      togglePageNoScroll(true, self.uid);
+      toggleScrollInhibitor(true, self.uid);
     }
   }
 
   componentDidUnload() {
-    togglePageNoScroll(false, this.uid);
+    toggleScrollInhibitor(false, this.uid);
   }
 
   // Handle delegated clicks on links & buttons:
@@ -88,7 +93,10 @@ export class MyComponent {
     const menuToggle = children.find(byToggleButton);
     const searchBox = children.find(bySearchBox);
     const logoLink = children.find(byLogoLink);
-
+    const subHeadings = children.filter(bySubheading);
+    const menuItems = children.filter(byMenuItem);
+    const subMenus = groupMenuItems(menuItems);
+    console.log(subHeadings);
     // Toggle aria-pressed attribute on the menu toggle button:
     // https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/button_role
     if (menuToggle && menuToggle.matches('button,[role=button],input[type=button]')) {
@@ -102,19 +110,40 @@ export class MyComponent {
         onClick={this.onClick}
         aria-expanded={this.expanded}
       >
-        {menuToggle && <div class={styles.toggle} innerHTML={menuToggle.outerHTML} />}
+        {/* {menuToggle && (
+          <div class={styles.toggle}>
+            <slot name="toggle" />
+          </div>
+        )} */}
 
-        {logoLink && <div class={styles.logo} innerHTML={logoLink.outerHTML} />}
+        <slot name="toggle" />
 
-        <ul class="items">
-          {this.children.filter(byMenuItems).map(child => {
-            const className = 'nav__item' + (styles[child.slot] ? ' ' + styles[child.slot] : '');
+        {logoLink && <div class="logo" innerHTML={logoLink.outerHTML} />}
 
-            return <li class={className} innerHTML={child.outerHTML} />;
-          })}
-        </ul>
+        {Object.keys(subMenus).map((key, i) => {
+          // Create a unique id if we have a subheading to render:
+          const id = subHeadings[i]
+            ? 'subheading-' +
+              Math.random()
+                .toString(36)
+                .substr(2)
+            : undefined;
 
-        {searchBox && <div class={styles.search} innerHTML={searchBox.outerHTML} />}
+          return (
+            <div class="menu">
+              {id && <em class="subheading" id={id} innerHTML={subHeadings[i].outerHTML} />}
+
+              <ul class="items" aria-labelledby={id}>
+                {subMenus[key].map(child => {
+                  const className = 'item ' + (child.slot || '');
+                  return <li class={className} innerHTML={child.outerHTML} />;
+                })}
+              </ul>
+            </div>
+          );
+        })}
+
+        {searchBox && <div class="search" innerHTML={searchBox.outerHTML} />}
       </nav>
     );
   }

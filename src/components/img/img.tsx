@@ -56,12 +56,12 @@ export class MyComponent {
 
   render() {
     const { src, srcset, sizes, width, height, loaded, onLoad, children } = this;
-
+    console.log(loaded);
     let { alt, class: className } = this;
     let placeholder;
 
     alt = alt ? alt.trim() : '';
-    className = 'img' + (className ? ' ' + className : '');
+    className = 'img ' + (className || '');
 
     if (!loaded) {
       const customPlaceholder =
@@ -91,7 +91,7 @@ export class MyComponent {
     }
 
     // Tip: The alt.trim() fixes cases where an author has accidentally provided only whitespace.
-    // Tip: We toggle the hidden attribute so that brands can customise the transition.
+    // Tip: We toggle the hidden attribute so that brands can customise a css transition.
     return [
       placeholder,
 
@@ -101,8 +101,8 @@ export class MyComponent {
         sizes={sizes}
         alt={alt}
         class={className}
-        hidden={!loaded}
         onLoad={onLoad}
+        hidden={!loaded}
       />
     ];
   }

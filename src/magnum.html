@@ -9,21 +9,21 @@
     />
 
     <!-- Experimental: Async stylesheet load: -->
-    <link rel="preload" href="iea-wc.css" as="style" onload="this.rel='stylesheet'" />
+    <link rel="preload" href="iea-wc.css" as="style" onload="this.rel='stylesheet'"></link>
     <noscript><link rel="stylesheet" href="iea-wc.css"/></noscript>
 
     <script src="iea-wc.js"></script>
 
     <!-- Experimental: DNS lookup before it's needed: -->
-    <link rel="preconnect" crossorigin href="https://www.magnumicecream.com" />
-    <link rel="preconnect" crossorigin href="https://www.dove.com" />
-
-    <aup-breakpoint></aup-breakpoint>
+    <link rel="preconnect" crossorigin href="https://www.magnumicecream.com"></link>
+    <link rel="preconnect" crossorigin href="https://www.dove.com"></link>
 
     <title>Superduperdemo</title>
   </head>
 
   <body>
+    <aup-breakpoint></aup-breakpoint>
+
     <header>
       <iea-skip-to-content></iea-skip-to-content>
 
@@ -39,9 +39,11 @@
         <a href="/">Products</a> <a href="/">Campaigns</a> <a href="/">Stories</a>
         <a href="/">Pleasure store</a> <a href="/">MagnumByMagnum</a>
 
-        <button slot="search" aria-label="Search">
-          <span class="icon" aria-hidden="true">🔍</span> <span class="text">Search</span>
+        <button slot="search">
+          <div class="text">Search</div>
+          <i class="icon" aria-hidden="true" >🔍</i>
         </button>
+
       </iea-global-nav-magnum>
     </header>
 

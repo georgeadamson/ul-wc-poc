@@ -1,0 +1,78 @@
+:host {
+  font-family: 'Noto Sans', sans-serif;
+
+  * {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+  }
+
+  .copy {
+    background-color: #00a4b6;
+    color: #fff;
+    padding: 34px 15px 40px;
+
+    opacity: 0.87;
+    top: -140px;
+    width: 90%;
+    position: relative;
+    margin: 0 auto -160px;
+    width: 90%;
+  }
+
+  .headings {
+    // Use css grid to position subheading before heading:
+    display: grid;
+    .subheading {
+      grid-row: 1;
+    }
+  }
+
+  .heading {
+    font-family: 'EB Garamond', serif;
+    font-weight: normal;
+    font-size: 30px;
+    line-height: 1.33;
+    padding-top: 15px;
+  }
+
+  .subheading {
+    font-size: 13px;
+    text-transform: uppercase;
+  }
+
+  .bodycopy {
+    font-size: 15px;
+    line-height: 1.53;
+    padding-top: 15px;
+
+    // Make link look like a button:
+    a,
+    [data-href] {
+      border-radius: 2px;
+      color: #fff;
+      font-family: 'EB Garamond', serif;
+      font-size: 19px;
+      border: 2px solid #fff;
+      padding: 6.5px 9.5px;
+      margin: 20px 0 0 0;
+      text-align: center;
+      text-decoration: none;
+      vertical-align: middle;
+
+      // Cunning way to place link on a new line:
+      display: table;
+
+      &:hover,
+      &:focus {
+        color: #00a4b6;
+        background-color: #fff;
+      }
+    }
+  }
+
+  // Custom styles: NOT AN APPROVED TECHNIQUE
+  // @import './hero.cleanipedia.themeA.scss';
+  // @import './hero.cleanipedia.themeB.scss';
+  // @import './hero.cleanipedia.themeC.scss';
+}

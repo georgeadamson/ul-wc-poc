@@ -2,23 +2,22 @@
 <html dir="ltr" lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="Description" content="Proof of concept demo page using Web Components" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
     />
 
     <!-- Experimental: Async stylesheet load: -->
-    <link rel="preload" href="iea-wc.css" as="style" onload="this.rel='stylesheet'"></link>
-    <noscript><link rel="stylesheet" href="iea-wc.css"/></noscript>
+    <link rel="preload" href="/build/iea-wc.css" as="style" onload="this.rel='stylesheet'" />
+    <noscript><link rel="stylesheet" href="/build/iea-wc.css"/></noscript>
 
-    <script src="iea-wc.js"></script>
+    <script src="/build/iea-wc.js"></script>
 
     <!-- Experimental: DNS lookup before it's needed: -->
-    <link rel="preconnect" crossorigin href="https://www.magnumicecream.com"></link>
-    <link rel="preconnect" crossorigin href="https://www.dove.com"></link>
+    <link rel="preconnect" crossorigin href="https://www.magnumicecream.com" />
+    <link rel="preconnect" crossorigin href="https://www.dove.com" />
 
-    <title>Superduperdemo</title>
+    <title>Cleanipedia POC</title>
   </head>
 
   <body>
@@ -36,30 +35,32 @@
           src="https://www.magnumicecream.com/content/dam/unilever/magnum/global/icon/ice_cream/all/magnum_logo-1129263.png"
         ></iea-logo>
 
-        <a href="/">Products</a> <a href="/">Campaigns</a> <a href="/">Stories</a>
-        <a href="/">Pleasure store</a> <a href="/">MagnumByMagnum</a>
+        <a href="/">Products</a> <aup-link href="/">Campaigns</aup-link>
+        <aup-link href="/">Stories</aup-link> <aup-link href="/">Pleasure store</aup-link>
+        <aup-link href="/">MagnumByMagnum</aup-link>
 
-        <button slot="search">
-          <div class="text">Search</div>
-          <i class="icon" aria-hidden="true" >🔍</i>
+        <button slot="search" aria-label="Search">
+          <span class="icon" aria-hidden="true">🔍</span> <span class="text">Search</span>
         </button>
-
       </iea-global-nav-magnum>
     </header>
 
     <main id="main-content">
       <iea-hero-magnum
         theme="A"
-        heading=""
-        src="https://geo.imgix.net/https%3A%2F%2Fwww.magnumicecream.com%2Fcontent%2Fdam%2Funilever%2Fmagnum%2Fglobal%2Fstatic_not_in-use_products_%2Fmagnum_vegan_key_visual_green_classic_horizontal_v2-1399606-jpg.jpg?s=6346b0e7e1c9a06fd2e45aaeb58b74cd"
+        heading="New Magnum Vegan"
+        heading-level="1"
         bodycopy="[Read more](https://www.magnumicecream.com/uk/stories/food/luxurious-vegan-icecream.html)"
+        src="https://www.magnumicecream.com/content/dam/unilever/magnum/global/static_not_in-use_products_/magnum_vegan_key_visual_green_classic_horizontal_v2-1399606-jpg.jpg"
+        width="540"
+        height="228"
       ></iea-hero-magnum>
 
       <iea-hero-magnum
         theme="B"
-        heading="NEW CHOCOLATE AND HAZELNUT PRALINÉx"
+        heading="NEW CHOCOLATE AND HAZELNUT PRALINÉ"
         subheading="Products"
-        heading-level="1"
+        heading-level="2"
         src=""
         bodycopy="Introducing Chocolate & Hazelnut Praliné – a luxurious new addition"
       ></iea-hero-magnum>
@@ -74,10 +75,50 @@
         <a href="/">Learn About Dove</a>
       </iea-global-nav-dove>
 
+      <iea-carousel
+        ><aup-link href="#1" target="_blank">
+          <aup-img
+            alt="TEST!"
+            src="https://asset-americas.unileversolutions.com/content/dam/unilever/knorr_world/united_states_of_america/pack_shot/front/savoury/meal_solutions/knorr_one_skillet_meals_meal_starter_lemon_chicken_with_barley_5_8oz_164g_/041000002281-940333-png.png.ulenscale.300x300.png"
+            width="3"
+            height="4"
+          ></aup-img>
+        </aup-link>
+        <aup-img
+          src="https://asset-americas.unileversolutions.com/content/dam/unilever/knorr_world/global/other_foods/all/knorr-sabor-sides-826870.png.ulenscale.300x300.png"
+          width="3"
+          height="4"
+        ></aup-img>
+        <aup-img
+          src="https://asset-americas.unileversolutions.com/content/dam/unilever/knorr_world/global/other_foods/all/knorr_us_granulatedbouillon_latinflavors_chicken-792119.png.ulenscale.350x350.png"
+          width="3"
+          height="4"
+        ></aup-img>
+        <aup-img
+          src="https://asset-americas.unileversolutions.com/content/dam/unilever/knorr_world/global/other_foods/all/knorr_us_recipemixes_vegetable-792314.png.ulenscale.300x300.png"
+          width="3"
+          height="4"
+        ></aup-img>
+        <aup-img
+          src="https://asset-americas.unileversolutions.com/content/dam/unilever/knorr_world/global/other_foods/all/knorr_us_gravies_classicbrown-792322.png.ulenscale.300x300.png"
+          width="3"
+          height="4"
+        ></aup-img>
+      </iea-carousel>
+
       <iea-scroll-position></iea-scroll-position>
     </main>
 
     <footer><iea-footer-nav></iea-footer-nav></footer>
+
+    <script>
+      // LOCALHOST ONLY:
+      // Hack: Hide localhost dev-server iframe from AXE accessibility tree:
+      setTimeout(function() {
+        var iframe = document.querySelector('iframe[src*=dev-server]');
+        iframe && iframe.setAttribute('aria-hidden', true);
+      }, 2000);
+    </script>
   </body>
 </html>
 
