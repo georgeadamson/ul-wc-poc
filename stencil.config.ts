@@ -6,7 +6,7 @@ export const config: Config = {
   globalStyle: 'src/global/global.scss',
   // For some readon dest defaults to dist/collection folder:
   copy: [
-    { src: 'index.html', dest: '../index.html' },
+    { src: 'cleanipedia.html', dest: '../cleanipedia.html' },
     { src: 'magnum.html', dest: '../magnum.html' }
   ],
   outputTargets: [
