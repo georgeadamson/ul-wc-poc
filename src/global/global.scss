@@ -1,5 +1,11 @@
 @import './variables.scss';
 @import './resets.scss';
+@import './hide.scss';
+
+:root {
+  --tooltipBackgroundColor: #00a4b6;
+  --tooltipForegroundColor: #fff;
+}
 
 @font-face {
   font-family: 'futura-pt';
@@ -9,6 +15,13 @@
     /* Super Modern Browsers */
       url('https://use.typekit.net/af/2cd6bf/00000000000000000001008f/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n5&v=3')
       format('woff'); /* Pretty Modern Browsers */
+}
+
+body {
+  // Smooth scroll to anchor links:
+  scroll-behavior: smooth;
+  // Momentum scrolling in iOS:
+  -webkit-overflow-scrolling: touch;
 }
 
 $gap: 8px;
@@ -26,4 +39,8 @@ $gap: 8px;
 .gin-top-9 {
   display: inline-block;
   margin-top: $gap * 9; // 72px
+}
+
+.a11y-hide {
+  @include a11y-hide();
 }
