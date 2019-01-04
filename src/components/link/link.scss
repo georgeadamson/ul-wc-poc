@@ -1,6 +1,6 @@
-// TODO: Can we do without this?
 :host {
-  a {
-    display: inline-block;
+  // Link element must fill available space in the component:
+  > a {
+    display: block;
   }
 }

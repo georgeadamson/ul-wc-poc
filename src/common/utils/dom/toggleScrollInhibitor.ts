@@ -14,7 +14,7 @@ export default function toggleScrollInhibitor(
     styleTag = doc.createElement('style');
     styleTag.id = id;
     styleTag.innerText =
-      containerSelector + '{overflow-y:hidden!important;overscroll-behavior:none!important}';
+      containerSelector + '{overflow:hidden!important;overscroll-behavior:none!important}';
     doc.head.appendChild(styleTag);
   } else {
     // Remove our custom style element:
