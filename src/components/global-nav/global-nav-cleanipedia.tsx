@@ -9,11 +9,11 @@ function filterBySlot(slot, item) {
 }
 
 // Prepare curried functions to filter child elements:
-const byToggleButton = filterBySlot.bind(0, 'toggle');
-const bySearchBox = filterBySlot.bind(0, 'search');
-const byLogoLink = filterBySlot.bind(0, 'logo');
-const bySubheading = filterBySlot.bind(0, 'subheading');
-const byMenuItem = filterBySlot.bind(0, '');
+const byToggleSlot = filterBySlot.bind(0, 'toggle');
+//const bySearchSlot = filterBySlot.bind(0, 'search');
+//const byLogoSlot = filterBySlot.bind(0, 'logo');
+const bySubheadingSlot = filterBySlot.bind(0, 'subheading');
+const byMenuItems = filterBySlot.bind(0, '');
 
 function groupMenuItems(children) {
   return children.reduce(function(result, item) {
@@ -21,6 +21,40 @@ function groupMenuItems(children) {
     (result[submenu] || (result[submenu] = [])).push(item);
     return result;
   }, {});
+}
+
+function renderMenuItems() {
+  const { expanded, children } = this;
+  const subHeadings = children.filter(bySubheadingSlot);
+  const menuItems = children.filter(byMenuItems);
+  const subMenus = groupMenuItems(menuItems);
+
+  return (
+    <div class="menu" hidden={!expanded}>
+      {Object.keys(subMenus).map((key, i) => {
+        // Create a unique id if we have a subheading to render:
+        // TODO: Smarter id that will work with server-side render (SSR)
+        const id = subHeadings[i]
+          ? 'subheading-' +
+            Math.random()
+              .toString(36)
+              .substr(-4)
+          : undefined;
+
+        return (
+          <div class="submenu">
+            {id && <em class="subheading" id={id} innerHTML={subHeadings[i].outerHTML} />}
+
+            <ul class="items" aria-labelledby={id}>
+              {subMenus[key].map(menu => (
+                <li class={'item ' + (menu.slot || '')} innerHTML={menu.outerHTML} />
+              ))}
+            </ul>
+          </div>
+        );
+      })}
+    </div>
+  );
 }
 
 @Component({
@@ -40,13 +74,16 @@ export class MyComponent {
   // Private: Will store array of children passed into component. Typically <a> elements:
   children: Element[];
 
-  uid: string = Math.random()
-    .toString(36)
-    .substr(2);
+  // Private: Unique id for this element:
+  uid: string =
+    'uid-' +
+    Math.random()
+      .toString(36)
+      .substr(-4);
 
   @Watch('expanded')
   onToggle(expanded: boolean) {
-    toggleScrollInhibitor(expanded, this.uid);
+    toggleScrollInhibitor(expanded, this.host.id);
   }
 
   componentWillLoad() {
@@ -55,19 +92,19 @@ export class MyComponent {
 
     // Inspired by https://stackoverflow.com/questions/52421298/web-components-how-to-work-with-children
     self.children = Array.from(host.children);
-    //host.innerHTML = '';
+    // host.innerHTML = '';
 
     if (!host.id) {
       host.id = self.uid;
     }
 
     if (self.expanded) {
-      toggleScrollInhibitor(true, self.uid);
+      toggleScrollInhibitor(true, host.id);
     }
   }
 
   componentDidUnload() {
-    toggleScrollInhibitor(false, this.uid);
+    toggleScrollInhibitor(false, this.host.id);
   }
 
   // Handle delegated clicks on links & buttons:
@@ -90,17 +127,26 @@ export class MyComponent {
 
   render() {
     const children = this.children;
-    const menuToggle = children.find(byToggleButton);
-    const searchBox = children.find(bySearchBox);
-    const logoLink = children.find(byLogoLink);
-    const subHeadings = children.filter(bySubheading);
-    const menuItems = children.filter(byMenuItem);
-    const subMenus = groupMenuItems(menuItems);
-    console.log(subHeadings);
+    const menuToggle = children.find(byToggleSlot);
+
+    //console.log(menuToggle.querySelectorAll("[data-when-pressed='hide']"));
+
     // Toggle aria-pressed attribute on the menu toggle button:
     // https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/button_role
     if (menuToggle && menuToggle.matches('button,[role=button],input[type=button]')) {
-      menuToggle.setAttribute('aria-pressed', String(this.expanded));
+      const pressed = String(this.expanded);
+
+      menuToggle.setAttribute('aria-pressed', pressed);
+
+      // Too much? Can we do without this?
+      Array.from(menuToggle.querySelectorAll('[data-hide-when-pressed]')).forEach(
+        (node: HTMLElement) => {
+          node['toggleAttribute'](
+            'hidden',
+            node.getAttribute('data-hide-when-pressed') === pressed
+          );
+        }
+      );
     }
 
     return (
@@ -110,40 +156,17 @@ export class MyComponent {
         onClick={this.onClick}
         aria-expanded={this.expanded}
       >
-        {/* {menuToggle && (
-          <div class={styles.toggle}>
-            <slot name="toggle" />
-          </div>
-        )} */}
+        <slot name="logo" />
 
         <slot name="toggle" />
 
-        {logoLink && <div class="logo" innerHTML={logoLink.outerHTML} />}
+        <slot name="menu">
+          {/* Default menu items:
+              Most sites need one list of menu items but we allow for more. */}
+          {renderMenuItems.call(this)}
+        </slot>
 
-        {Object.keys(subMenus).map((key, i) => {
-          // Create a unique id if we have a subheading to render:
-          const id = subHeadings[i]
-            ? 'subheading-' +
-              Math.random()
-                .toString(36)
-                .substr(2)
-            : undefined;
-
-          return (
-            <div class="menu">
-              {id && <em class="subheading" id={id} innerHTML={subHeadings[i].outerHTML} />}
-
-              <ul class="items" aria-labelledby={id}>
-                {subMenus[key].map(child => {
-                  const className = 'item ' + (child.slot || '');
-                  return <li class={className} innerHTML={child.outerHTML} />;
-                })}
-              </ul>
-            </div>
-          );
-        })}
-
-        {searchBox && <div class="search" innerHTML={searchBox.outerHTML} />}
+        <slot name="search" />
       </nav>
     );
   }

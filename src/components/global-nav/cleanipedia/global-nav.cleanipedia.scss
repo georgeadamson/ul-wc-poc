@@ -1,22 +1,39 @@
 @import '../../../global/hide.scss';
 @import '../../../common/sass/mixins/burger-icon';
 
+// For cleanipedia the nav consists of:
+// Mobile & desktop:
+// - Logo: left, grid-row 1
+// - Menu toggle: right, grid-row 1
+// - Menu items: full width, grid-row 2
+
+$navbar-height-xs: 70px;
+
 :host {
+  * {
+    box-sizing: border-box;
+  }
+
+  display: block;
+  min-height: $navbar-height-xs;
+
   // Questionable way to prevent top of page from being hidden under position:fixed .nav:
-  &:after {
+  &:before {
     content: '';
     display: block;
-    height: 72px;
+    height: $navbar-height-xs;
+    pointer-events: none;
 
     @media (min-width: 768px) {
-      height: 0;
+      height: 91px;
     }
   }
 
   // Mobile first styles:
   .nav {
+    // Position nav items:
     display: grid;
-    grid-template-columns: 135px auto 72px;
+    grid-template-columns: 135px auto $navbar-height-xs;
     justify-items: center;
 
     padding: 0;
@@ -26,12 +43,12 @@
     width: 100%;
 
     font-weight: 100;
-    font-family: futura-pt, Arial, sans-serif;
+    font-family: 'EB Garamond', serif;
     font-size: 13px;
     text-align: center;
 
     > * {
-      height: 72px;
+      height: $navbar-height-xs;
     }
   }
 
@@ -39,49 +56,125 @@
     list-style: none;
   }
 
-  /* Menu toggle button */
-  slot[name='toggle'] {
+  slot {
+    display: inline-block;
+  }
+
+  slot[name='logo'] {
     grid-row: 1;
     grid-column: 1;
-    width: 140px;
-
-    background: #000;
-    border: none;
-    cursor: pointer;
-
-    padding: 24px;
-    width: 72px;
-    height: 72px;
   }
 
-  button {
-    background: red;
-    @include burger-icon(24px, #fff);
+  slot[name='toggle'] {
+    grid-row: 1;
+    grid-column: 3;
   }
 
-  .nav {
-    &[aria-expanded] {
-      // Animate between icons ☰ and X:
-      [slot='toggle'] {
-        @include burger-icon-close();
+  slot[name='menu'] {
+    grid-row: 2;
+    grid-column: 1/4;
+  }
+
+  .menu {
+    // Hidden until menu is toggled open:
+    max-height: 0;
+    transition: max-height 0.2s ease-out;
+
+    // Menu styles:
+    background: #fff;
+    display: block;
+    font-size: 22px;
+    width: 100vw;
+    text-align: left;
+
+    // Scrolling:
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+
+    // Override browser default behaviour of "hidden" attribute:
+    // TODO: Apply hidden after menu transition to prevent focus on hidden menu items.
+    &[hidden] {
+      display: block;
+
+      // This kinda works and prevents focus inside the menu when hidden:
+      // Not so good when the menu animation is slow.
+      > * {
+        visibility: hidden;
       }
 
-      // Show menu:
-      .items {
-        background: #f5efe6;
-        display: block;
-        height: 100vh;
-        overflow-y: auto;
-        visibility: visible;
-      }
+      // Experiment: Can we prevent focus on links when menu is not expanded?
+      // Worth a try but neither of these techniques quite worked.
+      // &:focus-within > *,
+      // *:focus {
+      //   visibility: hidden;
+      // }
+    }
+
+    // To allow multi-column layout of submenus:
+    @media (min-width: 768px) {
+      display: flex;
     }
   }
 
-  .items {
+  .submenu {
+    // To space submenus equally:
+    @media (min-width: 768px) {
+      flex: 1;
+    }
+  }
+
+  .subheading {
+    color: #000;
+    display: block;
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: bold;
+    padding: 0 20px;
   }
 
   .item {
     a {
+      color: #000;
+      display: inline-block;
+      line-height: 44px;
+      padding: 0 20px;
+      text-decoration: none;
+
+      a:focus,
+      a:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  /* Menu toggle button */
+  ::slotted([slot='toggle']) {
+    width: 140px;
+
+    border: none;
+    cursor: pointer;
+
+    padding: 24px;
+    width: $navbar-height-xs;
+    height: $navbar-height-xs;
+
+    // Standard burger menu icon:
+    @include burger-icon(24px, #19a4b4);
+  }
+
+  .nav {
+    &[aria-expanded] {
+      // Animate between burger icon ☰ and X:
+      ::slotted([slot='toggle']) {
+        @include burger-icon-close();
+      }
+
+      // Reveal menu items:
+      .menu {
+        max-height: 100vh;
+        visibility: inherit;
+      }
     }
   }
 
@@ -116,8 +209,6 @@
   }
 
   .nav {
-    background: #000;
-
     &:not([aria-expanded]) {
       [class='item'] {
         //display: none;
@@ -127,7 +218,7 @@
 
   @media (min-width: 768px) {
     [slot='toggle'] {
-      display: none;
+      //display: none;
     }
 
     // Not well supported yet :(

@@ -20,7 +20,7 @@ export class MyComponent {
   @Prop()
   id: string = Math.random()
     .toString(36)
-    .substr(2);
+    .substr(-4);
 
   @Prop()
   value: string;

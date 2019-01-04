@@ -26,7 +26,10 @@
       <iea-skip-to-content></iea-skip-to-content>
 
       <iea-global-nav-cleanipedia>
-        <button slot="toggle" aria-label="Show menu"></button>
+        <button slot="toggle">
+          <i class="a11y-hide" data-hide-when-pressed="true">Show navigation menu</i
+          ><i class="a11y-hide" data-hide-when-pressed="false">Hide navigation menu</i>
+        </button>
 
         <iea-logo
           slot="logo"
@@ -35,8 +38,12 @@
         ></iea-logo>
 
         <div slot="subheading">How to</div>
-        <aup-link href="/">Bathroom cleaning</aup-link>
-        <aup-link href="/">Floor and surface cleaning</aup-link>
+        <aup-link href="/"
+          >Bathroom cleaning
+          <div>xx</div>
+          <div>yy</div></aup-link
+        >
+        <aup-link href="/" target="_blank">Floor and surface cleaning</aup-link>
         <aup-link href="/">Kitchen cleaning</aup-link>
         <aup-link href="/">Out of home</aup-link>
         <aup-link href="/">Clothing care</aup-link>
@@ -52,6 +59,8 @@
     </header>
 
     <main id="main-content">
+      <div>Search</div>
+
       <iea-hero
         theme="A"
         heading="How to clean a house during and after Christmas"
@@ -62,7 +71,12 @@
         width="668"
         height="417"
         link="{&quot;href&quot;:&quot;https://www.cleanipedia.com/gb/in-the-home/how-to-clean-a-house-during-and-after-christmas.html&quot;}"
+        ><div slot="placeholder" class="spinner"></div
       ></iea-hero>
+
+      <div>Articles (Carousel?)</div>
+
+      <div>Link list</div>
 
       <iea-scroll-position></iea-scroll-position>
     </main>

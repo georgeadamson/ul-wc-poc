@@ -3,27 +3,27 @@ import { Component, Prop } from '@stencil/core';
 @Component({
   tag: 'iea-logo',
   styleUrl: './magnum/logo-magnum.scss',
-  shadow: true
+  shadow: false
 })
 export class MyComponent {
   @Prop()
   href: string = '/';
 
   // This is used as img alt text:
-  // (Matches logo[alt] selector in css warnings)
+  // (Matches img[alt] selector in css warnings)
   @Prop()
-  alt: string = '';
+  alt: string = 'Homepage';
 
   @Prop()
   src: string = '';
 
   render() {
     return (
-      <a class="logo-link" href={this.href}>
+      <a class="logo__link" href={this.href}>
         {this.src ? (
-          <img class="logo-img" src={this.src} alt={this.alt} />
+          <img class="logo__img" src={this.src} alt={this.alt} />
         ) : (
-          <span class="alt">{this.alt}</span>
+          <span class="logo__alt">{this.alt}</span>
         )}
       </a>
     );

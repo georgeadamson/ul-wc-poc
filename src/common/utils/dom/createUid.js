@@ -6,7 +6,7 @@ export default function createUid(prefix = '', elem = undefined) {
     prefix +
     Math.random()
       .toString(36)
-      .substr(2);
+      .substr(-4);
 
   // Assign the id to the element if necessary.
   // Return its existing id if it already has one:

@@ -172,15 +172,15 @@ export namespace Components {
 
   interface AupLink {
     /**
-    * Default true because we typically want to emit link click events for analytics tracking.
+    * Optional aria attributes map.
     */
-    'events': boolean;
+    'aria': any;
     /**
     * Required: href attribute for the link. Avoid href="#".
     */
     'href': string;
     /**
-    * Optional id attribute for the link. Also used to associate aria-describedby when target="_blank".
+    * Optional id attribute for the link. We assume all links need an id. Also used to associate aria-describedby when target="_blank".
     */
     'id': string;
     /**
@@ -192,25 +192,29 @@ export namespace Components {
     */
     'target': string;
     /**
-    * Optional tooltip text. When target="_blank" this defaults to 'Opens in new window' and is used for aria-describedby. TODO: Smarter i18n for default texts.
+    * Optional tooltip text. When target="_blank" this defaults to 'Opens in new window' and is used for aria-describedby. TODO: Smarter i18n for default text.
     */
     'tooltip': string;
-  }
-  interface AupLinkAttributes extends StencilHTMLAttributes {
     /**
     * Default true because we typically want to emit link click events for analytics tracking.
     */
-    'events'?: boolean;
+    'withEvents': boolean;
+  }
+  interface AupLinkAttributes extends StencilHTMLAttributes {
+    /**
+    * Optional aria attributes map.
+    */
+    'aria'?: any;
     /**
     * Required: href attribute for the link. Avoid href="#".
     */
     'href'?: string;
     /**
-    * Optional id attribute for the link. Also used to associate aria-describedby when target="_blank".
+    * Optional id attribute for the link. We assume all links need an id. Also used to associate aria-describedby when target="_blank".
     */
     'id'?: string;
     /**
-    * This components emits tracking events on click, to be handled by the tracking component.
+    * This components emits tracking withEvents on click, to be handled by the tracking component.
     */
     'onTracking'?: (event: CustomEvent) => void;
     /**
@@ -222,9 +226,13 @@ export namespace Components {
     */
     'target'?: string;
     /**
-    * Optional tooltip text. When target="_blank" this defaults to 'Opens in new window' and is used for aria-describedby. TODO: Smarter i18n for default texts.
+    * Optional tooltip text. When target="_blank" this defaults to 'Opens in new window' and is used for aria-describedby. TODO: Smarter i18n for default text.
     */
     'tooltip'?: string;
+    /**
+    * Default true because we typically want to emit link click events for analytics tracking.
+    */
+    'withEvents'?: boolean;
   }
 
   interface IeaLogo {

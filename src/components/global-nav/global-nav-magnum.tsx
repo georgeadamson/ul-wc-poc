@@ -37,7 +37,7 @@ export class MyComponent {
 
   uid: string = Math.random()
     .toString(36)
-    .substr(2);
+    .substr(-4);
 
   @Watch('expanded')
   onToggle(expanded: boolean) {
