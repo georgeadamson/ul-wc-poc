@@ -5,7 +5,7 @@ export const config: Config = {
   namespace: 'iea-wc',
   globalStyle: 'src/global/global.scss',
   // For some readon dest defaults to dist/collection folder:
-  copy: [{ src: 'magnum.html', dest: '../magnum.html' }],
+  //copy: [{ src: 'magnum.html', dest: '../magnum.html' }, { src: 'magnum.html', dest: '../magnum.html' }],
   outputTargets: [
     {
       type: 'dist'
