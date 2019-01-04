@@ -11,8 +11,8 @@ function aspectHeightStyle(aspectRatio) {
 
 @Component({
   tag: 'aup-img',
-  styleUrl: 'img.scss',
-  shadow: true
+  styleUrls: ['../../common/sass/styles/spinner.scss', 'img.scss']
+  //shadow: true
 })
 export class MyComponent {
   @Prop() src: string;
@@ -56,7 +56,6 @@ export class MyComponent {
 
   render() {
     const { src, srcset, sizes, width, height, loaded, onLoad, children } = this;
-    console.log(loaded);
     let { alt, class: className } = this;
     let placeholder;
 

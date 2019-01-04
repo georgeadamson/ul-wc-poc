@@ -1,0 +1,42 @@
+.spinner {
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(50% 50%);
+
+  &:after {
+    content: '';
+    display: block;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 5px solid;
+    border-color: #00a4b6 transparent;
+    animation: delay-show 2s, spinner 1s linear infinite;
+  }
+
+  @keyframes delay-show {
+    0% {
+      opacity: 0;
+    }
+    99.9% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes spinner {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}

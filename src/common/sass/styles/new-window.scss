@@ -1,0 +1,9 @@
+// Experimental icon for "Opens in new window" links.
+// Optimised using: https://jakearchibald.github.io/svgomg/
+// Encoded using: https://codepen.io/tigt/post/optimizing-svgs-in-data-uris
+a[target='_blank'] {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Cpath d='M14 3h7v7h-2V6.4l-9.8 9.8-1.4-1.4L17.6 5H14V3zm5 16v-7h2v7c0 1-1 2-2 2H5a2 2 0 0 1-2-2V5c0-1 .9-2 2-2h7v2H5v14h14z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-size: 0.8em;
+}

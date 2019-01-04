@@ -6,7 +6,7 @@
  */
 
 // @ts-ignore
-import { Component, Prop } from '@stencil/core';
+import { Component, Prop, Element } from '@stencil/core';
 import md from '../../common/utils/dom/markdown.js';
 
 @Component({
@@ -49,8 +49,12 @@ export class HeroComponent {
 
   @Prop() link: string | any;
 
+  // This component:
+  @Element()
+  host: HTMLDivElement;
+
   render() {
-    const { src, alt, width, height, heading, subheading, bodycopy, theme, link } = this;
+    const { src, alt, width, height, heading, subheading, bodycopy, theme, link, host } = this;
     const themeClass = 'theme' + theme;
 
     let linkAttrs: any = undefined;
@@ -84,7 +88,10 @@ export class HeroComponent {
     // Prepare image tag if needed:
     const img = src && (
       <aup-img class="img x" src={src} alt={alt} width={width} height={height}>
-        <div slot="placeholder">Placeholder...</div>
+        <div
+          slot="placeholder"
+          innerHTML={host.children.length ? host.children[0].outerHTML : 'Placeholder...'}
+        />
       </aup-img>
     );
 
