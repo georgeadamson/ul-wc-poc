@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="Description" content="Proof of concept demo page using Web Components" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
+    />
+
+    <!-- Experimental: Async stylesheet load: -->
+    <link rel="preload" href="iea-wc.css" as="style" onload="this.rel='stylesheet'" />
+    <noscript><link rel="stylesheet" href="iea-wc.css"/></noscript>
+
+    <script src="iea-wc.js"></script>
+
+    <!-- Experimental: DNS lookup before it's needed: -->
+    <link rel="preconnect" crossorigin href="https://asset-eu.unileversolutions.com" />
+
+    <title>Cleanipedia POC</title>
+  </head>
+
+  <body>
+    <aup-breakpoint></aup-breakpoint>
+
+    <header>
+      <iea-skip-to-content></iea-skip-to-content>
+
+      <iea-global-nav-cleanipedia>
+        <button slot="toggle">
+          <i class="a11y-hide" data-hide-when-pressed="true">Show navigation menu</i
+          ><i class="a11y-hide" data-hide-when-pressed="false">Hide navigation menu</i>
+        </button>
+
+        <iea-logo
+          slot="logo"
+          alt="Cleanipedia homepage"
+          src="https://asset-eu.unileversolutions.com/content/dam/unilever/cleanipedia/global/key_visual/cleanipedialogo@3x-1266241.png.ulenscale.332x94.png"
+        ></iea-logo>
+
+        <div slot="subheading">How to</div>
+        <aup-link href="/"
+          >Bathroom cleaning
+          <div>xx</div>
+          <div>yy</div></aup-link
+        >
+        <aup-link href="/" target="_blank">Floor and surface cleaning</aup-link>
+        <aup-link href="/">Kitchen cleaning</aup-link>
+        <aup-link href="/">Out of home</aup-link>
+        <aup-link href="/">Clothing care</aup-link>
+        <aup-link href="/">In the home</aup-link>
+        <aup-link href="/">Laundry</aup-link>
+
+        <div slot="subheading">Inspiration</div>
+        <aup-link data-submenu="2" href="/">Sustainability</aup-link>
+        <aup-link data-submenu="2" href="/">Family</aup-link>
+        <aup-link data-submenu="2" href="/">Students</aup-link>
+        <aup-link data-submenu="2" href="/">Baby</aup-link>
+      </iea-global-nav-cleanipedia>
+    </header>
+
+    <main id="main-content">
+      <div>Search</div>
+
+      <iea-hero
+        theme="A"
+        heading="How to clean a house during and after Christmas"
+        heading-level="1"
+        subheading="In the home"
+        bodycopy="Christmas celebrations can require a lot of cleaning! Read on for suggestions on how to stay in control of your housework during Christmas & create a house cleaning schedule. [Read more](/gb/in-the-home/how-to-clean-a-house-during-and-after-christmas.html)"
+        src="https://asset-eu.unileversolutions.com/content/dam/unilever/cleanipedia/global/key_visual/5_day2_cleanipdedia_festivecleaning_2018_final-1209438.jpg.ulenscale.767x479.jpg"
+        width="668"
+        height="417"
+        link="{&quot;href&quot;:&quot;https://www.cleanipedia.com/gb/in-the-home/how-to-clean-a-house-during-and-after-christmas.html&quot;}"
+        ><div slot="placeholder" class="spinner"></div
+      ></iea-hero>
+
+      <div>Articles (Carousel?)</div>
+
+      <div>Link list</div>
+
+      <iea-scroll-position></iea-scroll-position>
+    </main>
+
+    <footer><iea-footer-nav></iea-footer-nav></footer>
+
+    <script>
+      // LOCALHOST ONLY:
+      // Hack: Hide localhost dev-server iframe from AXE accessibility tree:
+      setTimeout(function() {
+        var iframe = document.querySelector('iframe[src*=dev-server]');
+        iframe && iframe.setAttribute('aria-hidden', true);
+      }, 2000);
+    </script>
+  </body>
+</html>
+
+<!--
+  Welcome to Dove...
+
+  …the home of real beauty. For over a decade, we've been working to make beauty a source of confidence, not anxiety, and here's where the journey continues.
+  <a href='http://bbc.co.uk'>Read more</a>
+
+  [Read more](http://bbc.co.uk)
+
+  https://www.dove.com/content/dam/unilever/dove/global/general_image/dove_and_bunny_2048x980_hero_image_7-1418722.png.ulenscale.767x360.png
+
+
+  iea-footer-nav
+
+  <iea-skip-to-content></iea-skip-to-content>
+
+
+    <iea-global-nav>
+      <iea-logo></iea-logo>
+      <a href="/">Explore Solutions</a>
+      <a href="/">Products</a>
+      <a href="/">Baby Dove</a>
+      <a href="/">Men + Care</a>
+      <a href="/">Dove Self-Esteem Project</a>
+      <a href="/">Learn About Dove</a>
+    </iea-global-nav>
+
+
+    <iea-global-nav>
+      <button
+        slot="toggle"
+        aria-label="Show menu"
+      ></button>
+
+      <iea-logo
+        slot="logo"
+        alt="Magnum homepage"
+        src="https://www.magnumicecream.com/content/dam/unilever/magnum/global/icon/ice_cream/all/magnum_logo-1129263.png"
+      ></iea-logo>
+
+      <a href="/">Products</a>
+      <a href="/">Campaigns</a>
+      <a href="/">Stories</a>
+      <a href="/">Pleasure store</a>
+      <a href="/">MagnumByMagnum</a>
+
+      <button slot="search">
+        <span class="icon">🔍</span>
+        <span class="text">Search</span>
+      </button>
+    </iea-global-nav>
+
+
+    https://www.magnumicecream.com/content/dam/unilever/magnum/global/icon/ice_cream/all/magnum_logo-1129263.png
+
+
+    <iea-hero></iea-hero>
+
+
+        <iea-skip-to-content></iea-skip-to-content>
+-->

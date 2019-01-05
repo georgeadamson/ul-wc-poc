@@ -11,8 +11,8 @@ function aspectHeightStyle(aspectRatio) {
 
 @Component({
   tag: 'aup-img',
-  styleUrls: ['../../common/sass/styles/spinner.scss', 'img.scss']
-  //shadow: true
+  styleUrls: ['../../common/sass/styles/spinner.scss', 'img.scss'],
+  shadow: true
 })
 export class MyComponent {
   @Prop() src: string;
