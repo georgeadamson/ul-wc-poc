@@ -10,10 +10,5 @@ export default function createUid(prefix = '', elem = undefined) {
 
   // Assign the id to the element if necessary.
   // Return its existing id if it already has one:
-  if (elem) {
-    if (elem.id) return elem.id;
-    elem.id = uid;
-  }
-
-  return uid;
+  return elem ? elem.id || (elem.id = uid) : uid;
 }
