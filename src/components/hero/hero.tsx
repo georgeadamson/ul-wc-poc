@@ -55,7 +55,7 @@ export class HeroComponent {
 
   render() {
     const { src, alt, width, height, heading, subheading, bodycopy, theme, link, host } = this;
-    const themeClass = 'theme' + theme;
+    const themeClass = 'theme-' + theme;
 
     let linkAttrs: any = undefined;
 
